@@ -291,9 +291,14 @@ def load_settings() -> dict | None:
 def save_settings(data: dict, w: "Writer", why: str) -> None:
     w.backup(CLAUDE_SETTINGS)
     w.written.append(f"{CLAUDE_SETTINGS}  ({why})")
-    if not w.dry:
-        CLAUDE_SETTINGS.parent.mkdir(parents=True, exist_ok=True)
-        CLAUDE_SETTINGS.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8", newline="\n")
+    if w.dry:
+        return
+    if not data:
+        if CLAUDE_SETTINGS.exists():
+            CLAUDE_SETTINGS.unlink()  # nothing left but what the kit added; the backup keeps the old copy
+        return
+    CLAUDE_SETTINGS.parent.mkdir(parents=True, exist_ok=True)
+    CLAUDE_SETTINGS.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8", newline="\n")
 
 
 def is_kit_hook(entry: dict) -> bool:
