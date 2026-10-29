@@ -446,7 +446,7 @@ def cmd_update(a) -> int:
     if not target:
         print("The kit is not installed yet. Run: python install.py install --for claude|copilot|both", file=sys.stderr)
         return 2
-    print(f"Downloading the latest kit from {REPO_URL} ...")
+    print(f"Downloading the latest kit from {REPO_URL} ...", flush=True)
     with tempfile.TemporaryDirectory() as td:
         zpath = Path(td) / "kit.zip"
         try:
@@ -462,7 +462,7 @@ def cmd_update(a) -> int:
             print("The download did not contain install.py; nothing changed.", file=sys.stderr)
             return 1
         new = tops[0]
-        print(f"Installing {kit_version(new)} (you had {state.get('version')}).")
+        print(f"Installing {kit_version(new)} (you had {state.get('version')}).", flush=True)
         cmd = [sys.executable, str(new / "install.py"), "install", "--for", target]
         if a.force:
             cmd.append("--force")
