@@ -421,8 +421,9 @@ def cmd_install(a) -> int:
     print(f"AI Dev Kit {kit_version(root)} for {', '.join(targets)}: {verb} {len(w.written)}, "
           f"unchanged {w.same}, removed {len(gone)}, skipped {len(w.skipped)}")
     print(f"  updates: {mode} ({UPDATE_TEXT[mode]})")
-    if state.get("model_set_by_kit"):
-        print(f"  Claude Code default model: {state['model_set_by_kit']}")
+    current_model = (load_settings() or {}).get("model") if "claude" in targets and not a.dry_run else None
+    if current_model:
+        print(f"  Claude Code default model: {current_model}")
     for n in filter(None, notes):
         print("  " + n)
     for k in w.skipped:
@@ -576,8 +577,16 @@ UPDATE_TEXT = {
 
 
 def fetch(name: str) -> str:
-    with urllib.request.urlopen(RAW_URL + name, timeout=6) as r:
-        return r.read().decode("utf-8")
+    """A file from the kit's main branch. The GitHub API is tried first because raw.githubusercontent
+    can serve a copy several minutes old, which would announce an update that was already installed."""
+    api = f"https://api.github.com/repos/Routrix-Technologies-LLC/ai-dev-kit/contents/{name}?ref=main"
+    req = urllib.request.Request(api, headers={"Accept": "application/vnd.github.raw", "User-Agent": "ai-dev-kit"})
+    try:
+        with urllib.request.urlopen(req, timeout=6) as r:
+            return r.read().decode("utf-8")
+    except OSError:
+        with urllib.request.urlopen(RAW_URL + name, timeout=6) as r:
+            return r.read().decode("utf-8")
 
 
 def changes_since(changelog: str, installed: str, limit: int = 14) -> str:
@@ -612,7 +621,8 @@ def cmd_check_update(a) -> int:
         save_state(state, False)
         latest = fetch("VERSION").strip()
         installed = state.get("version") or ""
-        if not latest or latest == installed:
+        # Versions start with their build date; never offer one older than what is installed.
+        if not latest or latest == installed or latest[:10] < installed[:10]:
             if a.now:
                 print(f"The AI Dev Kit is up to date ({installed}).")
             return 0
@@ -627,6 +637,7 @@ def cmd_check_update(a) -> int:
             r = subprocess.run([sys.executable, str(new_root / "install.py"), "install", "--for", target],
                                capture_output=True, text=True, encoding="utf-8")
             if r.returncode == 0:
+                latest = load_state().get("version") or latest
                 print(f"AI Dev Kit: updated automatically from {installed} to {latest} (the person chose "
                       "automatic updates). In your first reply, mention this in one line with the main "
                       "changes below, and say that reloading VS Code loads any new agents and skills.")
