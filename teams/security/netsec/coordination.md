@@ -16,12 +16,12 @@ the operator's running services.
 
 ## Resource discipline
 
-- One heavy scanner per host at a time. Route heavy or long scans through
-  `run_locked.sh cpu`. Nothing that opens a window or uses the GPU without
-  `run_locked.sh gpu` and a brief that allows it.
+- One heavy scanner per host at a time. Run heavy or long scans one at
+  a time. Nothing that opens a window or uses the GPU without a brief that
+  allows it.
 - Scans and captures go to `~/AgentScratch/<engagement>/`, named by agent and
   target, so the director can collate without re-running anything.
-- Respect quiet hours in `scope.yaml`. Stop heavy work on `run_locked.sh` exit 75.
+- Respect quiet hours in `scope.yaml`. Stop heavy work when the operator needs the machine back.
 
 ## Findings flow back
 

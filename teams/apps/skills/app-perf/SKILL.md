@@ -67,7 +67,7 @@ Spawn `performance-engineer` (and platform specialists) in parallel per orchestr
 - Record the environment: OS and version, hardware class, build id or commit, other load on the machine.
 - Capture without stealing focus (section 10): headless browser, offscreen capture, simulator or emulator, request capture for services.
 - Lab measurements (a Lighthouse-class run, a simulator, a laptop) are labeled lab data and are not field data; a field-data budget (for example Core Web Vitals at the 75th percentile) without field data is NOT ASSESSED.
-- Heavy runs (release builds, load, emulators) go through `~/Tools/agent_locks/run_locked.sh` when that helper exists, one at a time.
+- Heavy runs (release builds, load, emulators) go one at a time.
 - Static findings (hot loops, N+1 queries, large bundles, main-thread work) are listed separately as CANDIDATES. They are never reported as measured results and never change a metric status.
 - Never optimize in this skill. Measure and report.
 

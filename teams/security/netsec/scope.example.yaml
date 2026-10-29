@@ -31,7 +31,7 @@ rules_of_engagement:
   stop_conditions:
     - "Any sign of real compromise that is not our testing: stop, preserve, escalate."
     - "Any outage or instability caused by testing: stop, report, help restore."
-    - "run_locked.sh exit 75 (operator is gaming): pause heavy or GPU work."
+    - "The operator needs the machine back: pause heavy or GPU work."
 
 # Everything the team is allowed to assess. Each entry: a name, an address or
 # locator, and optional per-entry overrides (intensity, exploit_safe, notes).

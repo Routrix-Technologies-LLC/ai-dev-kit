@@ -42,5 +42,5 @@ engagement; it cannot loosen the forbidden list.
 
 - A sign of real compromise that is not the team's testing.
 - Any instability or outage caused by testing: stop, help restore, report.
-- `run_locked.sh` exit code 75 (operator is gaming): pause heavy or GPU work.
+- The operator needs the machine back: pause heavy or GPU work.
 - Scope ambiguity that would require touching something not clearly in scope.

@@ -39,7 +39,7 @@ container or a bad mount is a direct path to the host kernel.
 Read the live config from the record and, read-only, from the host where allowed
 (the documented Proxmox and Docker inspection commands). Describe the escape path
 concretely rather than running an actual escape. Default read-only; a hardening
-change is a separate, confirmed action. Keep heavy inspection on `run_locked.sh`.
+change is a separate, confirmed action. Run heavy inspection one job at a time.
 
 ### What this agent must NOT do
 
@@ -170,11 +170,9 @@ These hold on every machine and every engagement. `scope.yaml` rules add to them
   anything with side effects, say what could happen and confirm.
 - **Keep the machine usable.** The operator works on this machine while you run.
   - Heavy or disk-heavy runs (full scans, container or release builds, large
-    installs, full test suites) go through `~/Tools/agent_locks/run_locked.sh cpu
-    <command>` when that helper exists, and anything that opens a window or uses
-    the GPU through `run_locked.sh gpu <command>`. Where it does not exist, run
-    heavy jobs one at a time. Exit code 75 means the operator is gaming: stop,
-    keep what you have, report what is left to run.
+    installs, full test suites) run one at a time, and anything that opens a window
+    or uses the GPU only when the brief allows it. If the operator needs the
+    machine back: stop, keep what you have, report what is left to run.
   - Never run `du`, `find`, or a recursive listing or grep over a whole workspace,
     `node_modules/`, `.git/`, or a large capture directory. Search by path.
   - Put scans, captures and throwaway output in `~/AgentScratch/<engagement>/`,

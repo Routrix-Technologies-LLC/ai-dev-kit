@@ -44,7 +44,7 @@ Check: a target table (target, can run here, build, test, observe, status) is pr
 
 Who: `test-automation-engineer` runs; the main session reads the output.
 
-Heavy builds, suites and emulators run through `~/Tools/agent_locks/run_locked.sh cpu <command>` (`gpu` for windowed or GPU work) when that helper exists, otherwise one at a time; exit code 75 means the user is gaming, so stop and mark what is left NOT ASSESSED. Run `commands.build` for every target that can run here (and `commands.build_release` when a rule requires it, or at `full`). Build per platform as the project does (for a multi-platform app: each platform's build command or CI job). Record exit code, duration and the warning count. A build that exits non-zero, times out, or produces no artifact is FAIL for that target. Do not fix anything.
+Heavy builds, suites and emulators run one at a time; if the user needs the machine back, stop and mark what is left NOT ASSESSED. Run `commands.build` for every target that can run here (and `commands.build_release` when a rule requires it, or at `full`). Build per platform as the project does (for a multi-platform app: each platform's build command or CI job). Record exit code, duration and the warning count. A build that exits non-zero, times out, or produces no artifact is FAIL for that target. Do not fix anything.
 
 Check: each build has a recorded exit code and, for targets that produce an artifact, the artifact path exists.
 

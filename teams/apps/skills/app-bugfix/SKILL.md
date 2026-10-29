@@ -82,7 +82,7 @@ The language specialist reviews the diff read-only if the fix is non-trivial (ri
 
 ## Phase 6: Prove it
 
-Run the commands yourself and read the output; take no one's word. Heavy runs (a full suite, a release build, a long stress loop, an emulator) go through `~/Tools/agent_locks/run_locked.sh cpu <command>` (`gpu` for anything that opens a window) when that helper exists, otherwise one at a time; exit code 75 means the user is gaming, so stop and report what is still to run as NOT VERIFIED.
+Run the commands yourself and read the output; take no one's word. Heavy runs (a full suite, a release build, a long stress loop, an emulator) run one at a time; if the user needs the machine back, stop and report what is still to run as NOT VERIFIED.
 
 1. The regression test: it must now pass (record command and output).
 2. The whole suite, `commands.test`, plus `commands.e2e` for a UI bug when set. Before the fix you recorded which tests were already failing (run the suite once on the unfixed code at the start of Phase 4 when it is affordable); a failure that is new after the fix is yours to resolve, a pre-existing failure is listed by name and not blamed or hidden.

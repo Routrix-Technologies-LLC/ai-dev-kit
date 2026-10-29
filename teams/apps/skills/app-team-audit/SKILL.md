@@ -24,7 +24,7 @@ Next: `app-tech-debt`, `app-plan` (stories from the backlog), `app-bugfix`, `app
 - `--scope`: default the whole repo. A narrower scope is stated in the report header and every denominator.
 - `--lenses`: optional comma list to force or drop lenses. Forcing a lens that does not fit the app is allowed and announced.
 - Read once and pass distilled: `studio.yaml`, `docs/qa/adoption-report.md`, the architecture doc, stack reference, threat model, privacy record, `planning/tech-debt.md`, `planning/risks.md`, the latest audit under `docs/qa/audit/` (to report what changed since). Each missing input is named; an absent architecture doc means the architecture lens reconstructs it from code and labels it so.
-- Commands from `commands:` (build, test, lint, run, screenshot). A missing command makes the dependent check NOT ASSESSED, never skipped silently. Heavy runs go one at a time through `~/Tools/agent_locks/run_locked.sh cpu <command>` when that helper exists.
+- Commands from `commands:` (build, test, lint, run, screenshot). A missing command makes the dependent check NOT ASSESSED, never skipped silently. Heavy runs go one at a time.
 - Formal reports that already exist and are newer than the last source commit (`docs/security/audits/`, `docs/qa/perf-*.md`, `docs/qa/a11y-*.md`, `docs/qa/smoke-*.md`) are given to the matching lens to review and extend, not redone. A deep dive on one lens is the job of `app-security-audit`, `app-perf` or `app-a11y-audit`, recommended in Next, not re-implemented here.
 
 ## Phase 0: Resolve and choose lenses

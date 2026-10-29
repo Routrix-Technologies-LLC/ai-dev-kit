@@ -28,7 +28,7 @@ Next: usually `/app-team-audit`, then the skills the adoption report ranks (`/ap
 
 - **Nothing is moved, renamed, deleted or reformatted.** Existing files are read only, with two exceptions that need the user's yes in Phase 2: appending `.studio/` to `.gitignore`, and filling an existing `studio.yaml` on `--refresh`.
 - **Only new files are written**, at the paths in the Phase 2 approval. If a target path already exists, do not overwrite it: write beside it with `.adopted` before the extension and tell the user, or use the mapped existing path.
-- **Verification must not change the app's data or the world.** No migrations, deploys, publishes, database resets, installs without a yes, or commands that send anything out. Heavy runs go through the run lock (`rules-full.md`, "Keep the machine usable"): `~/Tools/agent_locks/run_locked.sh cpu <command>` when it exists, `gpu` for anything that opens a window or uses the GPU, and exit 75 means the user is gaming: stop and report what remains. Where the helper does not exist, heavy runs go one at a time.
+- **Verification must not change the app's data or the world.** No migrations, deploys, publishes, database resets, installs without a yes, or commands that send anything out. Heavy runs go one at a time (`rules-full.md`, "Keep the machine usable"); if the user needs the machine back, stop and report what remains. Where the helper does not exist, heavy runs go one at a time.
 - **No secrets in any written file or report.** A secret found committed is reported as file and line only.
 - **Scratch output goes to `~/AgentScratch/adopt-<app>/`**, never into the repo.
 
@@ -147,7 +147,7 @@ Rigor changes what must exist, never what must work: commands are verified at ev
 
 First match wins.
 
-- **BLOCKED:** the folder cannot be read; the user declines the write approval and nothing can be produced; a required agent artifact is missing after one re-brief; the run lock reported exit 75 before anything was verified.
+- **BLOCKED:** the folder cannot be read; the user declines the write approval and nothing can be produced; a required agent artifact is missing after one re-brief; the user needed the machine back before anything was verified.
 - **NOT ASSESSED:** the stack could not be determined (Phase 1); or neither `build` nor `test` was verified (no runnable command found, dependencies could not be installed, user declined the runs, or heavy runs were stopped by the lock) so the core claim of adoption, a working command set, is unproven; or the stage could not be evidenced and the user did not answer. The report states which reason applied.
 - **COMPLETE WITH GAPS:** `studio.yaml` and the documents were written, but one or more of: `lint`, `run`, `format` or `e2e` unverified or absent; a doc type that could not be mapped; claims marked `INTENT UNKNOWN` or `UNVERIFIED` in the architecture document; a reviewer that did not run. The gaps are listed with counts and denominators.
 - **COMPLETE:** `build` and `test` verified, `lint` verified or confirmed absent by the user, every file written and read back, reviews as the mode requires, stage confirmed, no unresolved mapping.

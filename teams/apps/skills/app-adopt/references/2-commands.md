@@ -28,8 +28,8 @@ Conflicts (README says one thing, CI another): CI wins, and the conflict goes in
 | Class | Examples | Handling |
 |---|---|---|
 | Light | `--version`, lint, type check, format in check mode, unit tests of a small project | run directly |
-| Heavy | release builds, full test suites, container builds, dependency installs, bundle analysis, emulator or simulator work | run through `~/Tools/agent_locks/run_locked.sh cpu <command>`; one at a time; exit 75 means stop |
-| Windowed or GPU | `run` of a desktop or mobile app, screenshot tools, e2e that drives a browser or emulator | not run unless the user approved that specific command in Phase 2; if approved, through `run_locked.sh gpu`, never with input injection |
+| Heavy | release builds, full test suites, container builds, dependency installs, bundle analysis, emulator or simulator work | run one at a time; stop if the user needs the machine back |
+| Windowed or GPU | `run` of a desktop or mobile app, screenshot tools, e2e that drives a browser or emulator | not run unless the user approved that specific command in Phase 2; if approved, one at a time, never with input injection |
 | Mutating | `format` that rewrites files, codegen that writes into tracked folders | run only the check variant (`--check`, `--dry-run`, `--diff`) if one exists; otherwise do not run |
 | Forbidden | deploy, publish, release, migrate, db reset, anything that contacts a production service, `clean` that deletes data | never run; record as found, `not run (forbidden)` |
 

@@ -66,7 +66,7 @@ Counts always carry the denominator ("5 of 6 MVP features have a spec"). A scan 
 1. Run the commands the transition file lists, using the exact `commands:` from `studio.yaml`; never a command written from memory. Capture exit code and the last lines of output. Use a timeout.
 2. Tests: report "N of N run, M skipped, F failed". A runner that cannot start, a command that is unset where the tier requires it, or zero tests run is **NOT ASSESSED**, never a pass. Where the tier drops the item (see the file), say "not required at minimal", and still run it if the command exists: a failure of something that ran is a FAIL at every tier.
 3. Launch and observe for foundation to build and later (`orchestration.md` section 10): headless browser, offscreen capture, simulator or emulator, request capture, without stealing focus or injecting input. Each target in `platforms` is observed or reported NOT VERIFIED; a target that cannot be run here is NOT ASSESSED for that target, never skipped silently. Evidence goes in `docs/qa/evidence/`.
-4. Heavy runs (release builds, full test suites, emulators) go one at a time, through `~/Tools/agent_locks/run_locked.sh cpu <command>` when that helper exists.
+4. Heavy runs (release builds, full test suites, emulators) go one at a time.
 5. `qa-lead` (standard and full rigor, from foundation to build onward; not spawned at review mode solo, say so) re-checks the evidence the verdict turns on: opens the smoke or audit reports, compares claims to the repo, and writes `docs/gates/panel/<date>-qa-lead.md`. Brief per `orchestration.md` section 3 with the checklist results so far and the return contract. Verify what it reports (re-read one claimed file); label the rest UNVERIFIED.
 
 ## Phase 5: Manual checks

@@ -118,7 +118,7 @@ Run, from the repo root, the commands in `studio.yaml`, and read the output. Do 
 
 An empty command: print `<command> NOT VERIFIED: commands.<key> is not set`. Never infer from reading the code that it builds or passes.
 
-**Heavy runs use the run lock.** A release build, a container build, a full test suite, an emulator or a large dependency install runs as `~/Tools/agent_locks/run_locked.sh cpu <command>` (`gpu` for anything that opens a window or uses the GPU) when that helper exists, and one at a time when it does not. Exit code 75 means the user is gaming: stop, keep what exists, record in the checkpoint what is still to run, and report NOT VERIFIED for it. A quick unit-test or incremental build run may go directly.
+**Heavy runs go one at a time.** A release build, a container build, a full test suite, an emulator or a large dependency install never runs alongside another. If the user needs the machine back: stop, keep what exists, record in the checkpoint what is still to run, and report NOT VERIFIED for it. A quick unit-test or incremental build run may go directly.
 
 | Rigor | Tests the story must leave behind | Always, at every rigor |
 |---|---|---|

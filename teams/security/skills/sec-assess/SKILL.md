@@ -22,8 +22,8 @@ the operator's systems.
    - Offensive: web, api, reverse-proxy, network, auth, vuln, secrets.
    - Infrastructure: firewall/segmentation, container/host, cloud, endpoint.
    - GRC: NIST CSF scorecard and CIS controls/benchmarks.
-   Route heavy scans through `run_locked.sh cpu`, one per host. Stop heavy work on
-   exit 75.
+   Run heavy scans one at a time, one per host. Stop heavy work when the
+   operator needs the machine back.
 4. **Verify.** Each lead runs `FINDING-VERIFIED` on MEDIUM+ findings; unverified
    items are labelled, not dropped.
 5. **Purple loop.** The defensive practice (`soc-analyst`, `detection-engineer`,
@@ -40,7 +40,7 @@ the operator's systems.
 
 Write progress and scan artifacts to `~/AgentScratch/<engagement>/`. Keep
 everything non-destructive and within the intensity ceiling. If a stop condition
-hits (real compromise, instability, gaming), stop that thread, preserve state, and
+hits (real compromise, instability, the operator needs the machine), stop that thread, preserve state, and
 record it for the morning.
 
 ## Output

@@ -77,7 +77,7 @@ Then verify each finding yourself. Do not pass findings through unchecked:
 4. Label each: **VERIFIED** (you confirmed it), **REFUTED** (you showed it false: drop it, count it), **UNVERIFIED** (plausible, you could not confirm: report separately with the specialist's evidence). Re-rate severity from what you confirmed, not from the agent's tone.
 5. Keep the denominators: "31 raw findings from 5 lenses: 19 verified, 6 refuted, 4 unverified, 2 merged".
 
-**Mechanical checks, run by you:** `commands.build` and `commands.lint` (and `commands.format` as a check where it supports one) on the reviewed tree, through `~/Tools/agent_locks/run_locked.sh cpu <command>` when the build is heavy and that helper exists. A failure in the reviewed files is a VERIFIED finding with the exit code. An empty command is `NOT ASSESSED: commands.<key> is not set`. Tests are not run by this skill unless the user asks; the report says `Tests: not run by this review`.
+**Mechanical checks, run by you:** `commands.build` and `commands.lint` (and `commands.format` as a check where it supports one) on the reviewed tree, one heavy run at a time. A failure in the reviewed files is a VERIFIED finding with the exit code. An empty command is `NOT ASSESSED: commands.<key> is not set`. Tests are not run by this skill unless the user asks; the report says `Tests: not run by this review`.
 
 **Conformance:** when a story or ADR was given, classify each deviation: ARCHITECTURAL VIOLATION (uses a pattern the ADR rejects: HIGH), ADR DRIFT (diverges without a forbidden pattern: MEDIUM), MINOR DEVIATION (LOW). A cited ADR or spec that could not be read is `NOT ASSESSED: <doc> could not be read`; none cited is `NO ADRS CITED`, which is not NOT ASSESSED.
 

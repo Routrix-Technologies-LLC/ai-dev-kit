@@ -120,7 +120,7 @@ Who: `test-engineer` with the main session. Write `docs/qa/smoke-paths.md` (new 
 
 Who: the main session, running each command itself (orchestration.md section 5).
 
-0. Heavy runs (release builds, full suites, container builds, emulators and simulators, soak runs) go through `~/Tools/agent_locks/run_locked.sh cpu <command>` (`gpu` for anything that opens a window or uses the GPU) when that helper exists, otherwise one at a time; exit code 75 means the user is gaming, so stop, keep what exists and report what is still to run as NOT VERIFIED or NOT ASSESSED.
+0. Heavy runs (release builds, full suites, container builds, emulators and simulators, soak runs) go one at a time; if the user needs the machine back, stop, keep what exists and report what is still to run as NOT VERIFIED or NOT ASSESSED.
 1. For each of `build`, `build_release`, `test`, `lint`, `format`, `run`, `e2e`, `screenshot`: run it from the repo root and record exit code and the key count (tests run and passed, files written, image produced). `run` is verified by launching and stopping it, not by reading it.
 2. A command passes only if it exits as expected and produced the expected result. A test command that ran zero tests is a failure. A screenshot command that produced a blank or missing image is a failure.
 3. Show the user the table: command, value, result (VERIFIED with evidence, FAILED, NOT VERIFIED with reason).

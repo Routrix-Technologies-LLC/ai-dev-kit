@@ -63,7 +63,7 @@ Run, from the repo root, and report command, exit code and counts. Reading a pri
 2. `commands.lint`.
 3. `commands.test`, and `commands.e2e` when the story is UI or Integration and the command is set.
 
-Heavy runs (a release build, a full suite, an emulator) go through `~/Tools/agent_locks/run_locked.sh cpu <command>` (`gpu` for anything that opens a window or uses the GPU) when that helper exists, otherwise one at a time; exit code 75 means the user is gaming, so stop and report those checks NOT ASSESSED. Never run anything that takes focus or injects input on the live desktop: a `commands.e2e` that needs a visible window or real keystrokes is not run, and that check is NOT ASSESSED unless the user says they are away.
+Heavy runs (a release build, a full suite, an emulator) go one at a time; if the user needs the machine back, stop and report those checks NOT ASSESSED. Never run anything that takes focus or injects input on the live desktop: a `commands.e2e` that needs a visible window or real keystrokes is not run, and that check is NOT ASSESSED unless the user says they are away.
 
 A command that fails: BLOCKING, quote the first failing lines. A command that is empty, or a tool that is not installed: that check is NOT ASSESSED with the reason; it is never a pass. A failing test that also fails on the baseline (you may check with `git stash` only if the user agrees; otherwise report that you could not tell) is reported as pre-existing only with that proof. Confirm the story's new tests are in the run output by name.
 
