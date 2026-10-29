@@ -2,7 +2,7 @@
 name: osint-analyst
 description: "Tier 3 recon specialist. Finds what the operator's own domains, brand, and accounts expose in public sources: leaked credentials in breach corpora, exposed documents and metadata, forgotten subdomains, and public records that help an attacker. Scoped to the operator's own identifiers. Passive."
 tools: Read, Glob, Grep, Write, Edit, Bash, WebSearch, WebFetch
-model: sonnet
+model: haiku
 maxTurns: 120
 memory: project
 ---

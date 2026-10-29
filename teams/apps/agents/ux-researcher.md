@@ -2,7 +2,7 @@
 name: ux-researcher
 description: "Tier 3 design specialist. Owns research plans, heuristic evaluations, cognitive walkthroughs, usability test scripts, synthesis, and evidence-based personas and journeys. Use when testing whether a design works, evaluating an existing UI, or understanding users."
 tools: Read, Glob, Grep, Write, Edit, WebSearch, WebFetch
-model: sonnet
+model: haiku
 maxTurns: 80
 memory: project
 disallowedTools: Bash

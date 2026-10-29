@@ -2,7 +2,7 @@
 name: localization-specialist
 description: "Tier 3 design specialist. Owns internationalization architecture, string externalization, ICU messages, plurals and gender, locale formats, RTL and bidi, text expansion, pseudo-localization, fonts and scripts, and the translation pipeline. Use when preparing an app for more than one language or region."
 tools: Read, Glob, Grep, Write, Edit, Bash, WebSearch, WebFetch
-model: sonnet
+model: haiku
 maxTurns: 150
 ---
 

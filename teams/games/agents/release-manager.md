@@ -2,7 +2,7 @@
 name: release-manager
 description: "Release pipeline: build export, release checks, licensing check, store submission and page prep, version numbering, hotfixes."
 tools: Read, Glob, Grep, Write, Edit, Bash
-model: sonnet
+model: haiku
 maxTurns: 20
 ---
 

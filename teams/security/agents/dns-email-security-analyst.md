@@ -2,7 +2,7 @@
 name: dns-email-security-analyst
 description: "Tier 3 recon specialist. Audits the operator's DNS and email-authentication posture: record hygiene, SPF/DKIM/DMARC, subdomain takeover risk, dangling records, DNSSEC, and open-resolver exposure. Use to check whether the operator's domains can be spoofed or hijacked. Non-destructive."
 tools: Read, Glob, Grep, Write, Edit, Bash, WebSearch, WebFetch
-model: sonnet
+model: haiku
 maxTurns: 120
 memory: project
 ---

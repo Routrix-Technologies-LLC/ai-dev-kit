@@ -2,7 +2,7 @@
 name: audio-director
 description: "Owns sonic identity: sound palette, ambience, mix balance, audio implementation strategy, realism of sound."
 tools: Read, Glob, Grep, Write, Edit, WebSearch
-model: sonnet
+model: haiku
 maxTurns: 20
 memory: project
 disallowedTools: Bash

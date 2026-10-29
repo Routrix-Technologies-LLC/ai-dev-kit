@@ -1,0 +1,1 @@
+- Updates: the person chose automatic kit updates. In Claude Code a start-of-session check installs new versions and tells you; mention it in one line with what changed. Otherwise, at the start of `/kit-start` or `/kit-help`, run `python "$HOME/.ai-dev-kit/kit/install.py" check-update`, and if it reports a new version, run `/kit-update` and then tell them what changed.

@@ -2,7 +2,7 @@
 name: report-writer
 description: "Tier 3 reporting specialist for the Security Firm. Consolidates every practice's findings into one assessment: an executive summary a non-specialist can act on, ranked and deduplicated technical findings, a costed remediation plan, and an honest coverage statement. Runs RW-REPORT. Use to turn an engagement's output into the deliverable."
 tools: Read, Glob, Grep, Write, Edit, WebSearch, WebFetch
-model: sonnet
+model: haiku
 maxTurns: 100
 memory: project
 ---

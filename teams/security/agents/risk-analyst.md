@@ -2,7 +2,7 @@
 name: risk-analyst
 description: "Tier 3 GRC specialist. Turns findings and posture gaps into a ranked risk register: likelihood x impact for this environment, a clear owner, and a decision (mitigate, accept, transfer, eliminate). Helps the operator decide what to fix first and what to knowingly live with. Use to prioritize and record risk decisions."
 tools: Read, Glob, Grep, Write, Edit, WebSearch, WebFetch
-model: sonnet
+model: haiku
 maxTurns: 100
 memory: project
 ---

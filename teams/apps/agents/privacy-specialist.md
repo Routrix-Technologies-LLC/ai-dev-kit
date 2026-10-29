@@ -2,7 +2,7 @@
 name: privacy-specialist
 description: "Tier 3 trust specialist. Data inventory and flows, minimization, consent, retention, user rights, telemetry review, third-party SDK data sharing, privacy notice and store declaration drafts. Use when anything collects, stores, shares or infers personal data."
 tools: Read, Glob, Grep, Write, Edit, WebSearch, WebFetch
-model: sonnet
+model: haiku
 maxTurns: 80
 memory: project
 disallowedTools: Bash

@@ -2,7 +2,7 @@
 name: domain-fidelity-researcher
 description: "Owns real-world fidelity: researches how the thing the game simulates really works (a profession, place, period, vehicle, sport or physical system), writes sourced notes in docs/reference/, and reviews the game's numbers and procedures against them."
 tools: Read, Glob, Grep, Write, Edit, WebSearch, WebFetch
-model: sonnet
+model: haiku
 maxTurns: 30
 memory: project
 ---

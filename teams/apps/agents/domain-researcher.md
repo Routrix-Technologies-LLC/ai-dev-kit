@@ -2,7 +2,7 @@
 name: domain-researcher
 description: "Tier 3 research specialist. Owns sourced facts about the problem domain: standards, regulations, real-world workflows, competitor and comparable-product teardowns, and reviewing specs against reality. Use when a decision depends on how the real world works, what a standard says, or what competitors do."
 tools: Read, Glob, Grep, Write, Edit, WebSearch, WebFetch
-model: sonnet
+model: haiku
 maxTurns: 80
 memory: project
 ---

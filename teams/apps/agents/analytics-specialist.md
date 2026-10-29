@@ -2,7 +2,7 @@
 name: analytics-specialist
 description: "Tier 3 product specialist. Owns product metrics, event taxonomy, privacy-first telemetry design and implementation across web, desktop and mobile, experiment design and dashboards. Use when defining success metrics, adding instrumentation, or designing an A/B test."
 tools: Read, Glob, Grep, Write, Edit, Bash, WebSearch, WebFetch
-model: sonnet
+model: haiku
 maxTurns: 150
 ---
 

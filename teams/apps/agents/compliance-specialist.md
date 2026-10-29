@@ -2,7 +2,7 @@
 name: compliance-specialist
 description: "Tier 3 trust specialist. Open-source license compliance and notices, SBOMs, asset and font licensing, platform and store policy tracking, export-control flags, terms drafts. Use when adding dependencies or assets, preparing a release, or answering policy questions."
 tools: Read, Glob, Grep, Write, Edit, Bash, WebSearch, WebFetch
-model: sonnet
+model: haiku
 maxTurns: 80
 ---
 

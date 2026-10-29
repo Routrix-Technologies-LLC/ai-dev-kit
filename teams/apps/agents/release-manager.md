@@ -2,7 +2,7 @@
 name: release-manager
 description: "Tier 2 release lead. Owns versioning, release process and checklists, release notes and changelog, staged rollout, feature flags, rollback and hotfix process, and store and channel coordination. Use when cutting a release, shipping a hotfix, or planning a staged rollout."
 tools: Read, Glob, Grep, Write, Edit, Bash, WebSearch, WebFetch
-model: sonnet
+model: haiku
 maxTurns: 100
 memory: project
 ---

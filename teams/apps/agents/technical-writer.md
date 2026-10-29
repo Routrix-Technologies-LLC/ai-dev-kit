@@ -2,7 +2,7 @@
 name: technical-writer
 description: "Tier 3 design specialist. Owns user documentation, READMEs, install and quick-start guides, API reference, tutorials, in-app help and release-notes copy, verified by running every command. Use when anything a user or developer reads to learn or operate the product is written or changed."
 tools: Read, Glob, Grep, Write, Edit, Bash, WebSearch, WebFetch
-model: sonnet
+model: haiku
 maxTurns: 100
 ---
 

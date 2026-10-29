@@ -2,7 +2,7 @@
 name: business-analyst
 description: "Tier 3 product specialist. Owns requirements elicitation, process and state modeling, business rules, decision tables, edge-case matrices, data dictionaries and permission matrices. Use when a feature has complex rules, states or workflows that must be pinned down before building."
 tools: Read, Glob, Grep, Write, Edit, WebSearch, WebFetch
-model: sonnet
+model: haiku
 maxTurns: 80
 ---
 

@@ -2,7 +2,7 @@
 name: program-director
 description: "Tier 1 delivery direction. Owns roadmap, milestones, release trains, sequencing by risk and dependency, capacity and estimation honesty, critical path, the risk register, change propagation, status reporting and retrospectives. Use for planning order, schedule or scope risk, ripple changes across teams, status."
 tools: Read, Glob, Grep, Write, Edit, Bash, WebSearch, WebFetch
-model: sonnet
+model: haiku
 maxTurns: 80
 memory: project
 ---

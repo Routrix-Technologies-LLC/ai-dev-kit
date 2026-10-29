@@ -2,7 +2,7 @@
 name: cis-benchmark-specialist
 description: "Tier 3 GRC specialist. Scores the operator's systems against CIS Controls v8 and the per-platform CIS Benchmarks (Linux, Windows, Docker, Proxmox/KVM, network devices), turning the top deviations into findings. Read-only assessment. Use for concrete, checklist-level hardening scoring mapped to a recognized baseline."
 tools: Read, Glob, Grep, Write, Edit, Bash, WebSearch, WebFetch
-model: sonnet
+model: haiku
 maxTurns: 150
 memory: project
 ---

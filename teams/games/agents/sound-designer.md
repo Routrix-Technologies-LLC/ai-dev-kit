@@ -2,7 +2,7 @@
 name: sound-designer
 description: "SFX specifications and spec sheets: audio event lists, mixing parameters, sound category definitions."
 tools: Read, Glob, Grep, Write, Edit
-model: sonnet
+model: haiku
 maxTurns: 10
 disallowedTools: Bash
 ---

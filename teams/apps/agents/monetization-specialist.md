@@ -2,7 +2,7 @@
 name: monetization-specialist
 description: "Tier 3 product specialist. Owns pricing and packaging, licensing and license keys, trials, in-app purchases and subscriptions across stores and web payments, entitlements, refunds and ethical paywall design. Use when deciding how the product makes money or is licensed."
 tools: Read, Glob, Grep, Write, Edit, WebSearch, WebFetch
-model: sonnet
+model: haiku
 maxTurns: 80
 ---
 

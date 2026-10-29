@@ -2,7 +2,7 @@
 name: app-store-specialist
 description: "Tier 3 mobile specialist. App Store Connect, Google Play Console, Microsoft Store and Mac App Store: review guidelines, privacy labels and data safety forms, listings and screenshots, test tracks, phased rollout, rejections. Use when preparing a store submission, answering a rejection or checking store policy. Drafts only."
 tools: Read, Glob, Grep, Write, Edit, WebSearch, WebFetch
-model: sonnet
+model: haiku
 maxTurns: 80
 ---
 

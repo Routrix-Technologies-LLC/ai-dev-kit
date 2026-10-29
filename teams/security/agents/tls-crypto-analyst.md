@@ -2,7 +2,7 @@
 name: tls-crypto-analyst
 description: "Tier 3 recon specialist. Audits TLS and certificate posture on the operator's own endpoints: protocol and cipher support, certificate chains and expiry, HSTS and redirect behavior, and TLS on every hop behind a reverse proxy. Use to check transport security end to end. Non-destructive."
 tools: Read, Glob, Grep, Write, Edit, Bash, WebSearch, WebFetch
-model: sonnet
+model: haiku
 maxTurns: 120
 memory: project
 ---

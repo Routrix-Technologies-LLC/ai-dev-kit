@@ -2,7 +2,7 @@
 name: content-designer
 description: "Tier 3 design specialist. Owns UX writing: voice and tone, microcopy, error and empty states, notifications, terminology glossary, plain and inclusive language, and writing that localizes. Use when any words in the product need writing or auditing: labels, messages, onboarding, errors."
 tools: Read, Glob, Grep, Write, Edit, WebSearch, WebFetch
-model: sonnet
+model: haiku
 maxTurns: 80
 disallowedTools: Bash
 ---

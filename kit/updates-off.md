@@ -1,0 +1,1 @@
+- Updates: automatic update checks are off. The person updates with `/kit-update`. If they ask how to get updates without remembering, offer `python "$HOME/.ai-dev-kit/kit/install.py" updates notify` (they are told about new versions and approve each one) or `updates auto` (installed automatically).

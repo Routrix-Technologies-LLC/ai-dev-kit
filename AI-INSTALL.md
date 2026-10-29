@@ -6,7 +6,9 @@ Throughout: say in one line what each step does before you run it, in plain word
 
 ## 1. Tell them the plan
 
-In two or three sentences: you will check that Python is available, download the kit, run its installer (which adds the agents, skills and instructions to their AI setup), then ask them to reload VS Code. It takes a few minutes.
+In two or three sentences: you will check that Python is available, ask two quick questions (updates, and which model to use by default), download the kit, run its installer (which adds the agents, skills and instructions to their AI setup), then ask them to reload VS Code. It takes a few minutes.
+
+Keep this install itself light on usage: no subagents, no reading the whole repository. This file and the installer's output are all you need.
 
 ## 2. Know which assistant you are
 
@@ -24,6 +26,18 @@ If none works, ask permission, then install it:
 - Linux: the package manager, for example `sudo apt install python3`.
 
 Below, `python` means the command that worked.
+
+## 3b. Ask two quick questions
+
+Ask these one at a time, in plain words, with the recommended answer first.
+
+1. **Updates.** "The kit gets improved over time. How would you like updates?"
+   - **Tell me and ask first** (recommended): at the start of a session, at most once a day, the assistant mentions a new version and what changed, and installs it only if they say yes. Flag: `--updates notify`.
+   - **Install automatically**: new versions install on their own and the assistant mentions what changed. Flag: `--updates auto`.
+   - **Never check**: they run `/kit-update` when they want. Flag: `--updates off`.
+2. **Default model (Claude Code only).** Explain in two sentences: newer Claude Code versions start on the most capable and most expensive model, which uses up a Pro plan's allowance several times faster; the kit's agents already use the cheaper models, and Sonnet handles everyday building well. Recommend making Sonnet the default for new sessions (they can still switch any time with `/model`). Flag: `--default-model sonnet`, or `--default-model keep` to leave it as it is. If they are on a Max plan and want to keep the bigger model, respect that.
+
+For GitHub Copilot skip question 2, but mention that included models (not premium ones) are the right choice for everyday work, and the kit's instructions will steer that way.
 
 ## 4. Download the kit and install
 
@@ -54,11 +68,11 @@ d=$(mktemp -d) && curl -fsSL https://github.com/Routrix-Technologies-LLC/ai-dev-
 Then run, from anywhere:
 
 ```
-python <kit folder>/install.py install --for <claude|copilot|both>
+python <kit folder>/install.py install --for <claude|copilot|both> --updates <notify|auto|off> [--default-model <sonnet|keep>]
 ```
 
 What it writes (and nothing else):
-- Claude: `~/.claude/agents/`, `~/.claude/skills/`, `~/.claude/studio/`, and a marked block at the end of `~/.claude/CLAUDE.md`.
+- Claude: `~/.claude/agents/`, `~/.claude/skills/`, `~/.claude/studio/`, a marked block at the end of `~/.claude/CLAUDE.md`, and in `~/.claude/settings.json` only what they agreed to: the `model` key and, with updates on, one start-of-session hook that runs the kit's update check (its other settings are kept).
 - Copilot: `~/.copilot/agents/` (`*.agent.md`), `~/.copilot/skills/`, `~/.copilot/studio/`, and a marked block in `~/.copilot/copilot-instructions.md`.
 - Always: `~/.ai-dev-kit/` (its own copy, a record of installed files, and backups).
 
@@ -87,4 +101,5 @@ Keep this hand-over short and friendly.
 ## Updating and removing later
 
 - Update: `/kit-update`, or `python "$HOME/.ai-dev-kit/kit/install.py" update`.
+- Change how updates arrive: `python "$HOME/.ai-dev-kit/kit/install.py" updates notify|auto|off`.
 - Remove: `python "$HOME/.ai-dev-kit/kit/install.py" uninstall` (removes only what the kit installed).

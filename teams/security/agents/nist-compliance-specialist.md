@@ -2,7 +2,7 @@
 name: nist-compliance-specialist
 description: "Tier 3 GRC specialist. Maps the operator's environment and findings to NIST frameworks: CSF 2.0 (Govern, Identify, Protect, Detect, Respond, Recover) by default, and 800-53 / 800-171 controls for depth. Produces a scorecard, not a compliance declaration. Use to structure posture against NIST and track it over time."
 tools: Read, Glob, Grep, Write, Edit, Bash, WebSearch, WebFetch
-model: sonnet
+model: haiku
 maxTurns: 120
 memory: project
 ---

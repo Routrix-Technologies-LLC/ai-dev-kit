@@ -6,7 +6,15 @@
                                                            add a team to one project folder
     python install.py status                               what is installed, and what was changed by hand
     python install.py update                               download the latest kit and reinstall it
+    python install.py updates notify|auto|off              how updates arrive (asked at install; off by default)
+    python install.py check-update [--now]                 say whether a newer kit is out
     python install.py uninstall                            remove what the kit installed
+
+Install options: --updates notify|auto|off, and for Claude Code --default-model sonnet|haiku|keep
+(sets the default model for new sessions in ~/.claude/settings.json; sonnet is the sensible choice
+on a Pro plan, since newer Claude Code versions otherwise default to the most expensive model).
+With updates on, Claude Code gets a start-of-session hook that runs check-update at most once
+every 20 hours; it prints nothing unless a new version is out.
 
 Options: --dry-run shows what would happen and writes nothing. --force replaces files you
 changed by hand (the old copy is backed up first).
@@ -45,6 +53,9 @@ from pathlib import Path
 
 REPO_URL = "https://github.com/Routrix-Technologies-LLC/ai-dev-kit"
 ZIP_URL = REPO_URL + "/archive/refs/heads/main.zip"
+RAW_URL = "https://raw.githubusercontent.com/Routrix-Technologies-LLC/ai-dev-kit/main/"
+CHECK_EVERY_HOURS = 20
+UPDATE_MODES = ("notify", "auto", "off")
 
 HERE = Path(__file__).resolve().parent
 HOME = Path.home()
@@ -250,9 +261,85 @@ def strip_block(path: Path, dry: bool) -> bool:
     return True
 
 
-def instructions(root: Path, host: str) -> str:
-    text = (root / "kit" / "instructions.md").read_text(encoding="utf-8")
-    return text.replace("{{HOST}}", "Claude Code" if host == "claude" else "GitHub Copilot")
+def instructions(root: Path, host: str, mode: str) -> str:
+    kit = root / "kit"
+    text = (kit / "instructions.md").read_text(encoding="utf-8")
+    cost = (kit / f"cost-{host}.md").read_text(encoding="utf-8").strip()
+    updates = (kit / f"updates-{mode}.md").read_text(encoding="utf-8").strip()
+    return (text.replace("{{HOST}}", "Claude Code" if host == "claude" else "GitHub Copilot")
+            .replace("{{COST}}", cost).replace("{{UPDATES}}", updates))
+
+
+# ---------------------------------------------------------------- Claude Code settings.json
+
+CLAUDE_SETTINGS = CLAUDE / "settings.json"
+HOOK_MARK = "ai-dev-kit"
+
+
+def load_settings() -> dict | None:
+    """The user's Claude Code settings, or None if the file exists but is not plain JSON
+    (then the kit leaves it alone and says what to change by hand)."""
+    if not CLAUDE_SETTINGS.exists():
+        return {}
+    try:
+        data = json.loads(CLAUDE_SETTINGS.read_text(encoding="utf-8"))
+        return data if isinstance(data, dict) else None
+    except (OSError, ValueError):
+        return None
+
+
+def save_settings(data: dict, w: "Writer", why: str) -> None:
+    w.backup(CLAUDE_SETTINGS)
+    w.written.append(f"{CLAUDE_SETTINGS}  ({why})")
+    if not w.dry:
+        CLAUDE_SETTINGS.parent.mkdir(parents=True, exist_ok=True)
+        CLAUDE_SETTINGS.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8", newline="\n")
+
+
+def is_kit_hook(entry: dict) -> bool:
+    return any(HOOK_MARK in json.dumps(h) for h in entry.get("hooks", []))
+
+
+def set_update_hook(enabled: bool, w: "Writer") -> str:
+    """Add or remove the SessionStart hook that runs `install.py check-update --hook`.
+    Exec form (command + args) so it works the same under Git Bash and PowerShell."""
+    data = load_settings()
+    if data is None:
+        return f"left {rel_home(CLAUDE_SETTINGS)} alone (it is not plain JSON); update checks will run only from /kit-start and /kit-help"
+    hooks = data.setdefault("hooks", {})
+    entries = [e for e in hooks.get("SessionStart", []) if not is_kit_hook(e)]
+    if enabled:
+        entries.append({"matcher": "startup", "hooks": [{
+            "type": "command",
+            "command": Path(sys.executable).as_posix(),
+            "args": [(KIT_COPY / "install.py").as_posix(), "check-update", "--hook"],
+            "timeout": 30,
+        }]})
+    if entries:
+        hooks["SessionStart"] = entries
+    else:
+        hooks.pop("SessionStart", None)
+    if not hooks:
+        data.pop("hooks", None)
+    if data == load_settings():
+        return ""
+    save_settings(data, w, "kit update check at session start" if enabled else "removed kit update check")
+    return ""
+
+
+def set_default_model(model: str, state: dict, w: "Writer") -> str:
+    data = load_settings()
+    if data is None:
+        return f"left {rel_home(CLAUDE_SETTINGS)} alone (not plain JSON); set the model with /model {model}"
+    current = data.get("model")
+    if current == model:
+        return ""
+    if current and current != state.get("model_set_by_kit"):
+        return f"kept your chosen default model ({current}); /model {model} switches to the kit's recommendation"
+    data["model"] = model
+    save_settings(data, w, f"default model {model}")
+    state["model_set_by_kit"] = model
+    return ""
 
 
 # ---------------------------------------------------------------- install
@@ -274,16 +361,16 @@ def copy_kit_home(dry: bool) -> Path:
     return KIT_COPY
 
 
-def install_claude(root: Path, w: Writer) -> None:
+def install_claude(root: Path, w: Writer, mode: str) -> None:
     apps = root / "teams" / "apps"
     w.tree(apps / "agents", CLAUDE / "agents")
     w.tree(apps / "skills", CLAUDE / "skills")
     w.tree(apps / "studio", CLAUDE / "studio")
     w.tree(root / "kit" / "skills", CLAUDE / "skills")
-    write_block(CLAUDE / "CLAUDE.md", instructions(root, "claude"), w)
+    write_block(CLAUDE / "CLAUDE.md", instructions(root, "claude", mode), w)
 
 
-def install_copilot(root: Path, w: Writer) -> None:
+def install_copilot(root: Path, w: Writer, mode: str) -> None:
     apps = root / "teams" / "apps"
     fix = lambda f, t: t.replace("~/.claude/studio/", "~/.copilot/studio/")
     w.tree(apps / "agents", COPILOT / "agents",
@@ -292,7 +379,7 @@ def install_copilot(root: Path, w: Writer) -> None:
     w.tree(apps / "skills", COPILOT / "skills", transform=fix)
     w.tree(apps / "studio", COPILOT / "studio", transform=fix)
     w.tree(root / "kit" / "skills", COPILOT / "skills")
-    write_block(COPILOT / "copilot-instructions.md", instructions(root, "copilot"), w)
+    write_block(COPILOT / "copilot-instructions.md", instructions(root, "copilot", mode), w)
 
 
 def detect_for() -> str | None:
@@ -312,22 +399,32 @@ def cmd_install(a) -> int:
         return 2
     state = load_state()
     targets = sorted(set(TARGETS[target]) | (set(state.get("targets", [])) if a.keep_targets else set()))
+    mode = a.updates or state.get("updates") or "off"
     root = copy_kit_home(a.dry_run)
     w = Writer(state, a.force, a.dry_run)
+    notes = []
     if "claude" in targets:
-        install_claude(root, w)
+        install_claude(root, w, mode)
+        notes.append(set_update_hook(mode != "off", w))
+        if a.default_model and a.default_model != "keep":
+            notes.append(set_default_model(a.default_model, state, w))
     if "copilot" in targets:
-        install_copilot(root, w)
+        install_copilot(root, w, mode)
     gone = w.remove_stale() if set(targets) >= set(state.get("targets", [])) else []
     # Keep ownership of skipped files the kit wrote before, so a later --force or uninstall still knows them.
     files = {k: v for k, v in w.owned.items() if k in w.skipped}
     files.update(w.touched)
-    state.update(version=kit_version(root), targets=targets, files=files, installed=now())
+    state.update(version=kit_version(root), targets=targets, files=files, installed=now(), updates=mode)
     save_state(state, a.dry_run)
 
     verb = "would write" if a.dry_run else "wrote"
     print(f"AI Dev Kit {kit_version(root)} for {', '.join(targets)}: {verb} {len(w.written)}, "
           f"unchanged {w.same}, removed {len(gone)}, skipped {len(w.skipped)}")
+    print(f"  updates: {mode} ({UPDATE_TEXT[mode]})")
+    if state.get("model_set_by_kit"):
+        print(f"  Claude Code default model: {state['model_set_by_kit']}")
+    for n in filter(None, notes):
+        print("  " + n)
     for k in w.skipped:
         print(f"  kept your version (you changed it; --force replaces it and backs yours up): {k}")
     if not a.dry_run:
@@ -471,6 +568,105 @@ def cmd_update(a) -> int:
         return subprocess.call(cmd)
 
 
+UPDATE_TEXT = {
+    "notify": "the assistant tells you when a new version is out and asks before installing it",
+    "auto": "new versions install automatically and the assistant tells you what changed",
+    "off": "no update checks; run /kit-update yourself",
+}
+
+
+def fetch(name: str) -> str:
+    with urllib.request.urlopen(RAW_URL + name, timeout=6) as r:
+        return r.read().decode("utf-8")
+
+
+def changes_since(changelog: str, installed: str, limit: int = 14) -> str:
+    """The CHANGELOG.md entries dated after the installed version (versions start with a date)."""
+    since = (installed or "")[:10]
+    out, keep = [], False
+    for line in changelog.splitlines():
+        m = re.match(r"^## (\d{4}-\d{2}-\d{2})", line)
+        if m:
+            keep = m.group(1) >= since
+        if keep and line.strip():
+            out.append(line)
+    if len(out) > limit:
+        out = out[:limit] + ["(more in CHANGELOG.md)"]
+    return "\n".join(out)
+
+
+def cmd_check_update(a) -> int:
+    """Quietly check GitHub for a newer kit. Prints nothing when there is nothing to say, so it is
+    cheap to run at the start of every session. Never fails loudly: a hook must not break a session."""
+    try:
+        state = load_state()
+        mode = state.get("updates", "off")
+        if not state.get("files") or (mode == "off" and not a.now):
+            return 0
+        last = state.get("last_check")
+        if last and not a.now:
+            age = _dt.datetime.now() - _dt.datetime.strptime(last, "%Y%m%d-%H%M%S")
+            if age < _dt.timedelta(hours=CHECK_EVERY_HOURS):
+                return 0
+        state["last_check"] = now()
+        save_state(state, False)
+        latest = fetch("VERSION").strip()
+        installed = state.get("version") or ""
+        if not latest or latest == installed:
+            if a.now:
+                print(f"The AI Dev Kit is up to date ({installed}).")
+            return 0
+        try:
+            notes = changes_since(fetch("CHANGELOG.md"), installed)
+        except OSError:
+            notes = ""
+        if mode == "auto" and not a.now:
+            targets = state.get("targets") or []
+            target = "both" if len(targets) == 2 else targets[0]
+            new_root = _download_kit()
+            r = subprocess.run([sys.executable, str(new_root / "install.py"), "install", "--for", target],
+                               capture_output=True, text=True, encoding="utf-8")
+            if r.returncode == 0:
+                print(f"AI Dev Kit: updated automatically from {installed} to {latest} (the person chose "
+                      "automatic updates). In your first reply, mention this in one line with the main "
+                      "changes below, and say that reloading VS Code loads any new agents and skills.")
+            else:
+                print(f"AI Dev Kit: an automatic update to {latest} failed. In your first reply, mention it "
+                      "in one line and offer to run /kit-update.")
+        else:
+            print(f"AI Dev Kit: version {latest} is available (installed: {installed}). In your first reply, "
+                  "tell the person in one or two lines what is new (below) and ask whether to update now. "
+                  "If they say yes, run /kit-update. Their own edits to kit files are kept. If they say not "
+                  "now, drop it for this session.")
+        if notes:
+            print("What's new:\n" + notes)
+    except Exception:  # noqa: BLE001 - a start-of-session check must never break the session
+        pass
+    return 0
+
+
+def _download_kit() -> Path:
+    td = Path(tempfile.mkdtemp(prefix="ai-dev-kit-"))
+    zpath = td / "kit.zip"
+    with urllib.request.urlopen(ZIP_URL, timeout=120) as r, open(zpath, "wb") as out:
+        shutil.copyfileobj(r, out)
+    with zipfile.ZipFile(zpath) as z:
+        z.extractall(td)
+    return next(p for p in td.iterdir() if p.is_dir() and (p / "install.py").exists())
+
+
+def cmd_updates(a) -> int:
+    state = load_state()
+    if not state.get("files"):
+        print("The kit is not installed yet.", file=sys.stderr)
+        return 2
+    targets = state.get("targets") or []
+    target = "both" if len(targets) == 2 else targets[0]
+    r = subprocess.call([sys.executable, str(KIT_COPY / "install.py"), "install", "--for", target,
+                         "--updates", a.mode])
+    return r
+
+
 def cmd_uninstall(a) -> int:
     state = load_state()
     files = state.get("files", {})
@@ -489,6 +685,12 @@ def cmd_uninstall(a) -> int:
             p.unlink()
             prune_empty(p.parent)
     blocks = [str(f) for f in (CLAUDE / "CLAUDE.md", COPILOT / "copilot-instructions.md") if strip_block(f, a.dry_run)]
+    w = Writer(state, False, a.dry_run)
+    set_update_hook(False, w)
+    data = load_settings()
+    if data and state.get("model_set_by_kit") and data.get("model") == state["model_set_by_kit"]:
+        data.pop("model")
+        save_settings(data, w, "removed the kit's default model")
     if not a.dry_run:
         if KIT_COPY.exists():
             rmtree(KIT_COPY)
@@ -521,6 +723,10 @@ def main() -> int:
     p = sub.add_parser("install", help="install or refresh the kit for this user")
     common(p)
     p.add_argument("--keep-targets", action="store_true", help=argparse.SUPPRESS)
+    p.add_argument("--updates", choices=UPDATE_MODES,
+                   help="notify: ask before each update (recommended); auto: update automatically; off: never check")
+    p.add_argument("--default-model", choices=["sonnet", "haiku", "keep"],
+                   help="Claude Code only: the default model for new sessions (sonnet recommended on a Pro plan)")
     p = sub.add_parser("project", help="add a team to one project folder")
     p.add_argument("folder")
     p.add_argument("--team", required=True, choices=["games", "game", "security", "sec", "apps", "app"])
@@ -531,13 +737,19 @@ def main() -> int:
     p = sub.add_parser("uninstall", help="remove what the kit installed")
     p.add_argument("--force", action="store_true")
     p.add_argument("--dry-run", action="store_true")
+    p = sub.add_parser("check-update", help="say whether a newer kit is out (quiet when nothing to say)")
+    p.add_argument("--hook", action="store_true", help=argparse.SUPPRESS)
+    p.add_argument("--now", action="store_true", help="check even if checked recently or updates are off")
+    p = sub.add_parser("updates", help="choose how updates work: notify, auto or off")
+    p.add_argument("mode", choices=UPDATE_MODES)
 
     a = ap.parse_args()
     if a.cmd is None:
         ap.print_help()
         return 0
     return {"install": cmd_install, "project": cmd_project, "status": cmd_status,
-            "update": cmd_update, "uninstall": cmd_uninstall}[a.cmd](a)
+            "update": cmd_update, "uninstall": cmd_uninstall, "check-update": cmd_check_update,
+            "updates": cmd_updates}[a.cmd](a)
 
 
 if __name__ == "__main__":

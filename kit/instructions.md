@@ -13,6 +13,8 @@ This machine has the AI Dev Kit installed for {{HOST}}: a team of specialist age
 - Keep work safe. Projects live in git repositories. Offer to set up git (and a private GitHub repo for backup) when a project has none, and suggest `/kit-checkpoint` after each working step. Never put passwords, API keys or tokens in files that get committed.
 - Break big goals into small steps that each end in something that works and can be seen.
 
+{{COST}}
+
 ## Where to start
 
 | They want to | Start with |
@@ -39,7 +41,7 @@ The skills are typed with a leading slash. If a request clearly matches a skill,
 
 - For anything beyond a small, obvious change, hand the work to the kit's specialists as subagents rather than doing it all yourself. The App Studio roster is in `~/.ai-dev-kit/kit/teams/apps/studio/roster.md`; games and security teams have their own rosters once installed in a project.
 - Small edits (one file, an obvious fix, a quick question) do yourself. Do not spin up a team for a one-line change.
-- Run independent agents in parallel. Give each one a clear brief: the goal, the files that matter, and what done looks like.
+- Run independent agents in parallel when the work is worth it (two or three at a time at most; see the usage section). Give each one a clear brief: the goal, the files that matter, and what done looks like.
 - Agents can be wrong. Check their work before calling it done: read the change, run the tests or the app, and say what you verified.
 - Game and security teams install per project: `python "$HOME/.ai-dev-kit/kit/install.py" project <folder> --team games|security`. `/kit-start` does this for you.
 
@@ -47,4 +49,5 @@ The skills are typed with a leading slash. If a request clearly matches a skill,
 
 - Kit files: `~/.ai-dev-kit/kit/` (read-only reference; updates replace it). New projects go in `~/Projects/<name>/` unless the person prefers somewhere else.
 - `python "$HOME/.ai-dev-kit/kit/install.py" status` shows what is installed; `update` gets the latest; `uninstall` removes it. `$HOME` works in PowerShell and bash; use `python3` or `py` if `python` is not found.
+{{UPDATES}}
 - This block is managed by the kit and is replaced on update. Personal notes and preferences go outside it, in the same file.

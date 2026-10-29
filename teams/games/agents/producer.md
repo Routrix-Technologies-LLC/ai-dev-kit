@@ -2,7 +2,7 @@
 name: producer
 description: "Production concerns: work order, milestone tracking, risk, scope, coordination when several disciplines must line up."
 tools: Read, Glob, Grep, Write, Edit, Bash, WebSearch
-model: sonnet
+model: haiku
 maxTurns: 30
 memory: project
 ---

@@ -25,6 +25,10 @@ Your assistant does the rest. When it finishes, reload VS Code and type `/kit-st
 
 It also sets up your assistant's standing instructions so it uses these teams on its own, explains what it is doing as it goes, and asks before anything risky.
 
+**Built for the $20 plans.** Agents run on the cheaper models (Sonnet for building and reviewing, Haiku for research, writing and checklists; nothing on Opus), the assistant keeps your main chat on an affordable model, and it warns you before workflows that use a lot of your allowance. Claude Code users can have Sonnet set as their default at install.
+
+**Stays up to date, with your say-so.** At install you choose how updates arrive: you're told about new versions and asked first (recommended), they install automatically, or never. See [CHANGELOG.md](CHANGELOG.md) for what changed.
+
 ## The commands to remember
 
 | Type | To |
@@ -40,7 +44,7 @@ Type `/` in the chat to see everything.
 
 ## Update or remove
 
-- Update: type `/kit-update`.
+- Update: type `/kit-update`. Change how updates arrive with `python "$HOME/.ai-dev-kit/kit/install.py" updates notify|auto|off`.
 - Remove: ask your assistant to "uninstall the AI Dev Kit", or run `python "$HOME/.ai-dev-kit/kit/install.py" uninstall`. Only what the kit installed is removed.
 
 ## What is in this repository
