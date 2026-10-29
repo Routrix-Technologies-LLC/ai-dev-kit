@@ -1,0 +1,79 @@
+# Engagement scope: the authorization boundary for the Security Firm team.
+#
+# Copy this to .claude/netsec/scope.yaml in the project you run the team from,
+# then fill it in with assets YOU OWN AND OPERATE. Every agent reads this file
+# first and acts ONLY on what is listed under `in_scope`. Anything not listed is
+# out of scope and must not be probed, scanned, or touched. See authorization.md.
+#
+# Infrastructure facts (hosts, IPs, VLANs, routes) come from the record, not from
+# memory. Point `infra_source` at your infrastructure repo and keep this file in
+# agreement with it. Never put secrets (passwords, tokens, keys, WAN public IP)
+# in this file; name where a secret lives instead.
+
+engagement:
+  name: "Example engagement"
+  owner: "Your Name"
+  authorization: >
+    I, the owner, authorize this agent team to perform security testing against
+    the assets listed under in_scope below, which I own and operate. This file is
+    the authorization of record.
+  authorized_on: 2026-01-01
+  default_intensity: active-nondestructive   # passive | active-nondestructive | exploit-opt-in
+  infra_source: "../homelab-notes"           # authoritative record for hosts/IPs/VLANs (read-only)
+
+rules_of_engagement:
+  destructive_actions: forbidden      # never modify, delete, or corrupt data or config
+  denial_of_service: forbidden        # never, at any intensity: no stress, flood, or resource-exhaustion tests
+  data_exfiltration: forbidden        # never pull real user data off a host
+  credential_bruteforce: ask-first    # spraying/lockout-risk tests need explicit per-run go-ahead
+  config_changes: ask-first           # auditors read configs; changing one needs the owner's go-ahead
+  quiet_hours: anytime                # or a window to avoid, e.g. "avoid 18:00-23:00 local"
+  stop_conditions:
+    - "Any sign of real compromise that is not our testing: stop, preserve, escalate."
+    - "Any outage or instability caused by testing: stop, report, help restore."
+    - "run_locked.sh exit 75 (operator is gaming): pause heavy or GPU work."
+
+# Everything the team is allowed to assess. Each entry: a name, an address or
+# locator, and optional per-entry overrides (intensity, exploit_safe, notes).
+in_scope:
+
+  domains:
+    - name: example.com
+      public: true
+      notes: "Your apex domain. External testing allowed only after confirming it resolves to you."
+
+  public_web:                          # internet-reachable endpoints you own
+    - name: "Company site"
+      url: "https://www.example.com"
+      backend: "reverse proxy -> app host"
+      intensity: active-nondestructive
+
+  internal_services:                   # LAN-only services
+    - name: "Git server"
+      url: "http://10.0.0.10:3000"
+      intensity: active-nondestructive
+
+  network_devices:                     # firewall, switch, AP, router
+    - name: "Edge firewall"
+      address: "10.0.0.1"
+      kind: "firewall"
+      access: "read-only config review"   # default: do not change device config
+
+  hosts:                               # servers, VMs, containers, bare metal
+    - name: "Hypervisor"
+      address: "10.0.0.5"
+      kind: "proxmox"
+      access: "read-only config review"
+
+  subnets:                             # VLANs / CIDRs you own, for segmentation testing
+    - name: "Services"
+      cidr: "10.0.8.0/23"
+
+  exploit_safe: []                     # names from above you explicitly allow PoC exploitation on
+
+out_of_scope:
+  - "The WAN / public IP of the network and anything upstream of the edge firewall (ISP, modem management)."
+  - "Cloudflare, your CDN, or any cloud provider's own infrastructure: test only YOUR config on it, never their systems."
+  - "Any third-party SaaS, upstream DNS resolvers, package or update servers, or external APIs."
+  - "Any host, domain, URL, or subnet not explicitly listed under in_scope above."
+  - "Personal devices and anything belonging to another person or household member."

@@ -1,0 +1,67 @@
+# Written by: /app-start (new app) or /app-adopt (existing app), from the user's answers. Later edited by studio skills
+# only for `stage:` (/app-gate, after the user's yes), `commands:` (/app-test-setup) and `specialists:`.
+# Lives at: the app repo root, as studio.yaml. Agents and skills read it with the Read tool; nothing parses it with a script.
+# Rigor: required at every rigor level (minimal, standard, full). It stays short at all of them.
+# Rule for every key: a key nobody uses is noise, and an unknown value is left empty, never guessed.
+# Replace each [bracketed] placeholder. The values shown after the colon are examples of the shape, not defaults.
+
+studio: 1                      # Format version of this file. Leave at 1 until the studio announces a new format.
+
+app:
+  name: "[App name]"           # Display name, as users see it.
+  summary: "[One line: what it is and who it is for. Same sentence as the brief's pitch, no marketing words.]"
+
+# Where the app is in its life. Only /app-gate changes this, and only after the user says yes.
+# discovery | definition | architecture | foundation | build | hardening | release | operate
+# An existing app usually enters at build or operate through /app-adopt.
+stage: discovery
+
+# Every target the app ships on. Agents are chosen from this list, so be complete and honest.
+# Allowed values: web, windows, macos, linux, ios, android, backend, cli, extension, library
+platforms: [web]
+
+stack:
+  languages: []                # Primary languages in the repo, taken from manifest and lock files.
+  frameworks: []               # UI, app and service frameworks actually in use, not ones merely considered.
+  data: []                     # Databases, caches, queues and file formats the app owns.
+  hosting: []                  # Store, self-hosted, cloud, local only. Facts about the hosts live in infra_record.
+  # The oldest OS, browser or device you still support. This decides which APIs are allowed.
+  min_targets: ""              # e.g. "oldest supported OS version, browser support policy, oldest device class"
+
+# The exact commands, run from the repo root. Leave a command empty until it has been run once and worked.
+# /app-test-setup fills gaps. Agents run these as written and never invent substitutes.
+commands:
+  build: ""                    # Debug or development build.
+  build_release: ""            # The build users actually run. If the user tests from it, say so in rules below.
+  test: ""                     # Unit and integration tests, non-interactive, exits non-zero on failure.
+  lint: ""                     # Static analysis, with warnings treated as errors where the project does so.
+  format: ""                   # Formatter. A check-only variant belongs in CI, not here.
+  run: ""                      # Starts the app for local use.
+  e2e: ""                      # End-to-end or UI automation, if any.
+  screenshot: ""               # How to capture the app without stealing focus (headless browser, offscreen capture, simulator). Empty if unknown.
+
+modes:
+  rigor: minimal               # minimal | standard | full. How much documentation and verification the app gets (standards/rigor.md).
+  review: lean                 # solo | lean | full. Which gates run. Omit this line to follow rigor.
+
+# Agents this app usually needs, beyond the directors and leads. Chosen from platforms and stack.
+# Example for a desktop app: [windows-desktop-engineer, rust-specialist]. Keep it to the real set.
+specialists: []
+
+# How releases reach users, for example [web-deploy, github-releases, winget, app-store, play-store, ms-store, npm]. Empty until known.
+channels: []
+
+# Repo or document that holds hosting facts (hosts, ports, deploy steps) when the app is deployed. No credentials, ever.
+infra_record: ""
+
+# Standing rules for this app. Every agent obeys them. Write each as an instruction plus its reason,
+# because a rule without a reason gets ignored at the first inconvenience.
+rules: []
+#  - "[Instruction, because reason.]"
+
+# Overrides of the default layout (layout.md), for apps that already keep these files elsewhere.
+# Keys: brief, vision, specs, design_language, ux, architecture, adr, api, threat_model, privacy, stack_reference,
+# decisions, epics, sprints, risks, tech_debt, test_plans, evidence, bugs, release, changelog, store, runbooks,
+# incidents, prototypes, research, migrations, upgrades, reviews, audits, gates, licenses, ops. Example: { adr: docs/decisions, changelog: HISTORY.md }
+# Nothing is moved to match the default layout without the user's yes.
+paths: {}
