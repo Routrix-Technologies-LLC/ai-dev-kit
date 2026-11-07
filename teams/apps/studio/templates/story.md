@@ -43,6 +43,7 @@ Each criterion is binary (it passes or it does not) and scoped to this story.
 - [ ] [AC-2] (REQ-feature-NNN)
 - [ ] [AC-3: failure path or empty state] (REQ-feature-NNN)
 - [ ] [Performance, accessibility or platform criterion if the spec sets one] (REQ-feature-NNN)
+- [ ] [Live verification: the built artifact on the test environment (`studio.yaml` `test_environment:`) does AC-1 to AC-N when exercised like a user (real request, real browser, real install). Delete only for a story with no runtime behaviour, and say why.] (REQ-feature-NNN)
 
 Every criterion ends with its requirement ID. A story needs at least two criteria for Logic, Integration, UI and Visual changes. Aim for no more than eight; split the story beyond that. For UI and Visual stories, state keyboard, screen reader and text-scaling expectations, or `covered by <UX spec section>`.
 
@@ -104,6 +105,7 @@ Evidence by change type (standards/testing.md). The story is not Complete withou
 | Security | Test or scan output showing the control works; reviewer sign-off | `docs/qa/evidence/[story]/` |
 | Performance | Measurements against the budget, before and after | `docs/qa/evidence/[story]/` |
 | Docs | Link check or rendered preview | `docs/qa/evidence/[story]/` |
+| Any change with runtime behaviour | Live evidence from the deployed build on the test environment (`standards/live-verification.md`): requests and responses, browser screenshots that were opened, install log; for Security, the attack tool output | `docs/qa/evidence/[story]/` |
 
 Evidence path for this story: `docs/qa/evidence/[story-slug]/`
 
@@ -112,6 +114,8 @@ Evidence path for this story: `docs/qa/evidence/[story-slug]/`
 Exactly one line, filled by /app-dev-story and re-checked by /app-story-done (orchestration.md section 10). NOT VERIFIED blocks closing a UI or Visual story.
 
 Run result: [OBSERVED - what was seen, evidence path | NOT VERIFIED - why it could not be run | N/A - why nothing is observable]
+
+Live result: [LIVE - environment, build or commit, what was exercised, evidence path | NOT LIVE-VERIFIED - why | N/A - why there is no runtime behaviour]. The story is not Complete on NOT LIVE-VERIFIED unless the user recorded why live proof is impossible.
 
 ## Dependencies
 

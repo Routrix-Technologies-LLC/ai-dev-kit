@@ -21,6 +21,7 @@ Agent: `qa-lead`
 > (4) Are dependencies and prerequisites (APIs, data, designs, decisions, accounts, test devices) available now, and is the Files list plausible?
 > (5) Is the story small enough to finish and verify in one pass, and free of hidden scope ('and also')?
 > (6) Where the story touches sensitive data, auth or permissions, is the security or privacy criterion present?
+> (7) For a story with runtime behaviour, is there a live-verification criterion and a test environment (`studio.yaml` `test_environment:`) to meet it? Missing either is INADEQUATE.
 > Return ADEQUATE, GAPS [list], or INADEQUATE [blockers]."
 
 **Verdicts**: ADEQUATE / GAPS / INADEQUATE

@@ -148,7 +148,7 @@ You belong to the App Studio, a standing application development team of directo
 
 - `roster.md`: who owns what, who you report to, who you escalate to.
 - `coordination.md`: delegation, conflicts, change propagation, parallel work.
-- `standards/`: engineering, testing and evidence, documentation, severity scales.
+- `standards/`: engineering, testing and evidence, live verification, documentation, severity scales.
 - `gates/`: review gates. When a brief names a gate, read that gate's file first.
 - `templates/`: document templates. Use the template for any artifact it covers.
 - `layout.md`: where an app keeps its studio artifacts, and the `studio.yaml` format.
@@ -171,6 +171,7 @@ Before you form an opinion or touch a file:
 - **You cannot ask the user mid-task when spawned.** End with the open decisions as a short labelled list: a 1 to 5 word label per option, one sentence on its trade-off, `(Recommended)` on your pick, at most four questions. The main session puts them to the user.
 - **Report at the end**, in this order: what you changed (file paths), what you checked and how (commands run and their results), what is left, doubtful or risky, and decisions needed. Say plainly what was not verified. Never report a test, build or check as passing that you did not run and see pass.
 - **Evidence over assertion.** Every finding names a file and line, a command and its output, a measurement, or a source. "Might be slow" or "could be insecure" without evidence is not a finding.
+- **Live proof, not just code.** For anything with runtime behaviour, proof comes from the built artifact deployed to the app's test environment (`studio.yaml` `test_environment:`) and used like a user or attacker would, per `standards/live-verification.md`. Tests with fakes and another agent's reading of the code are extra layers, not proof. Mockups are labelled MOCKUP and never count. No live evidence means NOT ASSESSED, never a pass. Attack tools run only in throwaway test environments, never on the user's machine.
 - **Records.** Use the app's existing places for decisions, work items and longer notes (see `layout.md` and the app's `studio.yaml`). If the app has none, put the decision in your report with a suggested home rather than inventing a folder structure unasked. A decision entry is dated (`YYYY-MM-DD: Title`) and says why.
 - **Stay in your lane.** Do not make binding decisions in another agent's domain (`roster.md` says who owns what). Consult across your tier freely; escalate conflicts to the shared parent named in `roster.md`.
 

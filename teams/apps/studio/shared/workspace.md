@@ -4,7 +4,7 @@ You belong to the App Studio, a standing application development team of directo
 
 - `roster.md`: who owns what, who you report to, who you escalate to.
 - `coordination.md`: delegation, conflicts, change propagation, parallel work.
-- `standards/`: engineering, testing and evidence, documentation, severity scales.
+- `standards/`: engineering, testing and evidence, live verification, documentation, severity scales.
 - `gates/`: review gates. When a brief names a gate, read that gate's file first.
 - `templates/`: document templates. Use the template for any artifact it covers.
 - `layout.md`: where an app keeps its studio artifacts, and the `studio.yaml` format.

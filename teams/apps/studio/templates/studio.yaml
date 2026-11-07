@@ -40,6 +40,16 @@ commands:
   e2e: ""                      # End-to-end or UI automation, if any.
   screenshot: ""               # How to capture the app without stealing focus (headless browser, offscreen capture, simulator). Empty if unknown.
 
+# Where the built artifact is deployed and attacked for live verification (standards/live-verification.md). No credentials, ever:
+# name where they are kept. Every key empty means no test environment yet, and creating one is the first story.
+test_environment:
+  kind: ""                     # test-server | container | vm | emulator | device | staging. What the artifact runs on for testing.
+  reach: ""                    # Host name, address or how to connect (ssh alias, URL, emulator name). Never a password or token.
+  deploy: ""                   # The exact command that puts the built artifact on it.
+  reset: ""                    # The exact command that returns it to a known state (snapshot restore, container recreate, wipe).
+  browser: ""                  # Where a headless browser runs against the web UI (host or command), so it never opens on the user's desktop. Empty if no web UI.
+  attack_from: ""              # The throwaway box or container that attack tools run from. Never the user's own machine.
+
 modes:
   rigor: minimal               # minimal | standard | full. How much documentation and verification the app gets (standards/rigor.md).
   review: lean                 # solo | lean | full. Which gates run. Omit this line to follow rigor.

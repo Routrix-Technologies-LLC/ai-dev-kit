@@ -99,7 +99,11 @@ For each story it writes the acceptance criteria as binary checkboxes, copied or
 
 Check: every story has at least the minimum criteria (below) and every requirement in scope appears in the coverage table.
 
+Every story with runtime behaviour also gets a live-verification criterion (`templates/story.md`, `standards/live-verification.md`). If `studio.yaml` `test_environment:` is empty, the first story of the plan stands up that environment (deployable, resettable, reachable by a headless browser and by attack tools), and stories that need it depend on it.
+
 ## Phase 4: QA test cases and testability (sequence)
+
+QA test cases include the live case for each such story: what is deployed, what real request, browser run or install is made, what is retained. A story whose only checks are against fakes is Draft.
 
 Agent: `qa-lead`. Brief with the stories, their types and criteria. Output: `.studio/drafts/plan-<scope>-qa-lead.md`.
 

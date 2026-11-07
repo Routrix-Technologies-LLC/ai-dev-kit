@@ -94,6 +94,8 @@ An unclear signal is never defaulted to the cheaper answer: ask. Review mode fol
 
 **Minimum targets.** Ask for the oldest OS, browser or device to support. If unknown, leave `min_targets` empty and say so.
 
+**Test environment.** Ask where the built app will be deployed and tried for real before it is called done (a test server, a container host, a VM, an emulator or device, a staging site), how to reach and reset it, and where a headless browser and attack tools can run without touching the user's own machine (`standards/live-verification.md`). Record the answers in `studio.yaml` `test_environment:` (no credentials). If there is none, say that standing one up is the first story, and `/app-plan` will write it first.
+
 ## Phase 5: Show the card, then write
 
 Print the card, then ask once for the whole file set.
@@ -112,7 +114,7 @@ Not written: anything outside <folder>
 Ask (one call, two questions): (1) "Write these files?" `Write them` / `Change something first` / `Do not write`; (2) "Add `.studio/` to `.gitignore`?" `Yes (Recommended)` / `No, I will handle it`. A skipped answer is not a yes. Run `git init` only if the folder is not a repository, and only because the card said so and the user answered `Write them` to question (1); never add a remote and never commit.
 
 On yes:
-1. Create the folder if needed. Write `studio.yaml` from `.claude/studio/templates/studio.yaml`: fill `app`, `platforms`, `stack` (empty values stay empty), `modes`, `specialists`, and set `stage: discovery`. `commands:` stays empty (no code exists yet); `paths: {}`; `rules:` empty unless the user stated a standing rule. Add nothing the user did not say.
+1. Create the folder if needed. Write `studio.yaml` from `.claude/studio/templates/studio.yaml`: fill `app`, `platforms`, `stack` (empty values stay empty), `modes`, `specialists`, and set `stage: discovery`. Fill `test_environment:` from the Phase 4 answers; unknown values stay empty. `commands:` stays empty (no code exists yet); `paths: {}`; `rules:` empty unless the user stated a standing rule. Add nothing the user did not say.
 2. Write `docs/product/brief.md` from `.claude/studio/templates/product-brief.md` using the Phase 3 answers verbatim where possible. Add a closing section `## Foundation plan` (below).
 3. Write `.studio/state.md` from `templates/session-state.md` with the CHECKPOINT block filled (task: app start, last result, next step).
 4. Apply the `.gitignore` answer. Append the line to an existing file with the Edit tool; create the file if absent; never rewrite existing lines.

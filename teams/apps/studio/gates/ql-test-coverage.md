@@ -22,6 +22,7 @@ Agent: `qa-lead`
 > (4) Are edge, error and boundary cases covered, and is flakiness avoided (no sleeps on real time, no network without fakes)?
 > (5) Is each affected platform exercised, or is a platform listed as not verified? An unexercised platform is a gap to name, not a pass.
 > (6) Do tests assert behavior rather than implementation details, and do they leave no stale or skipped cases hiding failures?
+> (7) For a story with runtime behaviour, is there live evidence from the built artifact on the test environment (real requests, real browser, real install; `standards/live-verification.md`)? Unit tests, fakes and mockups do not count. Without it return INADEQUATE, or NOT ASSESSED if no test environment exists.
 > Return ADEQUATE, GAPS [list], or INADEQUATE [blockers]."
 
 **Verdicts**: ADEQUATE / GAPS / INADEQUATE

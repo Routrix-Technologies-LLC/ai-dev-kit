@@ -29,7 +29,7 @@ You can also just describe the work. The main session picks the right agents fro
 | Orchestration | `orchestration.md` | How skills brief agents, check their work, ask the user, and report. |
 | Coordination | `coordination.md` | Delegation, escalation, change propagation, agent memory. |
 | Gates | `gates/` | Named reviews that return fixed verdicts. Index in `gates/README.md`. |
-| Standards | `standards/` | Rigor levels, testing and evidence, engineering, documentation, severity, context management. |
+| Standards | `standards/` | Rigor levels, testing and evidence, live verification, engineering, documentation, severity, context management. |
 | Templates | `templates/` | Every document the studio writes. |
 | App layout | `layout.md` | Where each app keeps its studio artifacts, `studio.yaml`, stages. |
 | Shared agent sections | `shared/` | Text stamped into every agent by `tools/sync_shared.py`. |

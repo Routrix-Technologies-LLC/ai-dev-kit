@@ -21,6 +21,7 @@ Agent: `security-lead`
 > (4) Do the dependency and build-chain checks show no known exploited vulnerabilities, unreviewed new dependencies or unsigned artifacts?
 > (5) Is the audit current, covering the code that is shipping rather than an older version?
 > (6) Are logging and telemetry free of secrets and personal data, and is there an incident contact and a way to ship a fix quickly?
+> (7) Were real attack tools run against the running deployment on the test environment (`standards/live-verification.md`), or is the audit review only? Review-only evidence for a deployed surface is a CONCERN at minimum and NOT ASSESSED for its dynamic categories.
 > Return CLEAR, CONCERNS [list], or BLOCK [blockers]."
 
 **Verdicts**: CLEAR / CONCERNS / BLOCK

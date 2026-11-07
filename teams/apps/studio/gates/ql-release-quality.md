@@ -22,6 +22,7 @@ Agent: `qa-lead`
 > (4) Do the performance, accessibility and localization results meet their budgets or targets, with any shortfall explicitly accepted by the user?
 > (5) Are known issues documented in the release notes, and is every regression since the last release explained?
 > (6) Is there evidence the rollback path works for this version (data compatibility, downgrade or rollout halt)?
+> (7) Was the exact candidate deployed to the test environment and exercised live, with security tools run against the running deployment (`standards/live-verification.md`)? Evidence from fakes or from review alone is not live. Missing live evidence is NOT READY or NOT ASSESSED, never READY.
 > Return READY, CONCERNS [list], or NOT READY [blockers]."
 
 **Verdicts**: READY / CONCERNS / NOT READY

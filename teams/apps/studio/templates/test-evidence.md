@@ -48,6 +48,8 @@ Capture without taking focus: headless browser, offscreen window capture, simula
 
 Run result: [OBSERVED - what was seen, evidence path | NOT VERIFIED - why it could not be run | N/A - why nothing is observable]
 
+Live result: [LIVE - environment, build or commit, what was exercised, evidence path | NOT LIVE-VERIFIED - why | N/A - why there is no runtime behaviour] (`standards/live-verification.md`)
+
 ## Observations
 
 [Anything surprising, even if it passed: flicker, slow frame, odd copy, behavior that differs by platform. File bugs for real defects and link them.]

@@ -155,6 +155,8 @@ Run result: OBSERVED - <what was seen, evidence path> | NOT VERIFIED - <why it c
 
 "It is a logic change" is not an N/A reason when the change alters what a user sees. NOT VERIFIED on a UI or Visual story blocks closing, and the summary says so.
 
+**Live result.** For any change with runtime behaviour, also deploy the built artifact to the `test_environment:` in `studio.yaml` (its `deploy` command) and exercise it the way a user or attacker would: real requests, a headless browser against the real UI with screenshots opened, the real installer (`standards/live-verification.md`). Tests with fakes do not count. Write `Live result: LIVE - <environment, build, what was exercised, evidence path> | NOT LIVE-VERIFIED - <why> | N/A - <why there is no runtime behaviour>` beside the Run result line. No test environment, or it could not be reached: NOT LIVE-VERIFIED, the story stays In Review, and the summary says so. Never mark live proof done from a mock.
+
 ## Phase 7: Update the story, checkpoint, close the run
 
 1. **Story file.** Replace the rows of its `Files` table with the files actually changed (Path, Create or Modify, Purpose; code and tests), fill its `Run result:` line with the one line from Phase 6, record the test files and evidence folder under the story's `Test Evidence` section, set `Last updated`, and set `Status` to In Review when the verdict is IMPLEMENTED or IMPLEMENTED WITH NOTES (left In Progress when BLOCKED or NOT VERIFIED). Never Complete. The Phase 3 ask covered these edits.

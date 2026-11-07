@@ -23,6 +23,7 @@ Legend: **R** required (absent, placeholder-only or failing is FAIL). **rec** re
 | 11 | Data migration rehearsed | `planning/migrations/<id>.md` | If the schema or a file format changed since the last release: verdict READY, old data opens. Otherwise record "no data change since <tag>" with the diff checked | R if changed | R if changed | R if changed |
 | 12 | Stability pass | soak and edge-case results | Long-run and failure-mode tests (`test-engineer`, `site-reliability-engineer`) have results on disk | - | rec | R |
 | 13 | Per-artifact gate outcomes recorded | audit, privacy record and release record headers | `SL-SECURITY-REVIEW` on the security audit (it runs after `/app-security-audit` at every mode but solo; at `solo` report `not run: solo mode`); `QL-RELEASE-QUALITY` on the release candidate; `SL-PRIVACY` on the privacy record when personal data is handled. `QL-RELEASE-QUALITY` is normally run by `/app-release` or `/app-team-release`: if it has not run yet, report it as not yet run and name those skills. None may be BLOCK, NOT READY or NOT ASSESSED; a CONCERNS line needs the user's recorded acceptance. `PG-MILESTONE` is optional | - | R* | R* |
+| 14 | Live verification of the candidate | `docs/qa/evidence/`, `studio.yaml` `test_environment:` | The exact candidate was deployed to the test environment and exercised live, and the security audit includes a tool attack on the running deployment (`standards/live-verification.md`). Review-only security evidence or fakes only is NOT ASSESSED | R | R | R |
 
 ## Quality checks
 

@@ -19,6 +19,7 @@ Legend: **R** required (absent, placeholder-only or failing is FAIL). **rec** re
 | 9 | Tech debt triaged | `planning/tech-debt.md` | No row marked blocking without an owner and a plan | - | rec | R |
 | 10 | Risks reviewed | `planning/risks.md` | No High risk without mitigation or an accepted decision | - | R | R |
 | 11 | Per-story and UI gate outcomes recorded | story files, `docs/design/reviews/` | `PM-ACCEPTANCE`, `PE-CODE-REVIEW` and `QL-TEST-COVERAGE` on each Complete story ("N of N"); `DD-VISUAL` on UI and Visual work. None REJECTED, REJECT, INADEQUATE or NOT ASSESSED. `PG-MILESTONE` and `TD-CHANGE-IMPACT` are optional | - | R* | R* |
+| 12 | Live verification evidence | `docs/qa/evidence/`, `studio.yaml` `test_environment:` | Open the same three Complete stories: each with runtime behaviour has a `Live result: LIVE` line and evidence from the deployed build (`standards/live-verification.md`). Empty `test_environment:` or fakes only is NOT ASSESSED | R | R | R |
 
 ## Quality checks
 

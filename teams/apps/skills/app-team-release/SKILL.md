@@ -60,7 +60,7 @@ Spawn in one message. Each brief names the release candidate build, the previous
 | `performance-engineer` | always (minimal: only if the budget exists) | read the `app-perf` report on the release build against `perf-budget.md`; no budget means NO BUDGET, not a pass | `docs/release/<version>/performance-engineer.md` |
 | `compliance-specialist` | dependencies, assets or store policies changed | licenses and notices, SBOM current, store policy conformance | `docs/release/<version>/compliance-specialist.md` |
 
-Check: every spawned agent's file exists with real content and states a result in its own vocabulary. A missing one is re-briefed once, then a named BLOCKED gap. A stale harden sign-off or audit (code changed since) is reported as CONCERNS with the commit range, not ignored.
+Check: every spawned agent's file exists with real content and states a result in its own vocabulary. The release candidate must also have been deployed to the `test_environment:` and exercised live (`standards/live-verification.md`); `qa-lead` states in its file whether live evidence covers the exact candidate, and none means NOT READY or NOT ASSESSED, never READY. A missing one is re-briefed once, then a named BLOCKED gap. A stale harden sign-off or audit (code changed since) is reported as CONCERNS with the commit range, not ignored.
 
 ## Phase 4: Packaging and deploy prep, per channel (parallel)
 

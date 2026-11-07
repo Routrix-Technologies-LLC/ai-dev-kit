@@ -102,6 +102,8 @@ Append the return contract from `orchestration.md` section 3. `identity-speciali
 
 Check: every named file exists and has findings or an explicit "no findings in N items" per category. Missing file: re-brief once, then that surface is `BLOCKED` and its categories NOT ASSESSED.
 
+**Live attack.** In addition to the agent review, attack the running deployment on `studio.yaml` `test_environment:` with real tools chosen by surface (`standards/live-verification.md`: for example OWASP ZAP, testssl.sh, nmap, ssh-audit, fuzzers, scripted probes), run from the `attack_from` box and never from the user's own machine or against production. Keep tool, version, target, command and output with the audit. Dynamic categories with no running target stay NOT ASSESSED, and the report says the evidence is review only. A tool's clean result covers only what it tested.
+
 ## Phase 5: Verify and consolidate
 
 Main session. Do not pass findings through unchecked.

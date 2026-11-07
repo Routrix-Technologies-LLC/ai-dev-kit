@@ -121,7 +121,7 @@ Both `build` and `operate` are common (a live app under development). Show the e
 
 ## Phase 6: Finalize `studio.yaml`
 
-Fill `commands:` from the verified results in `~/AgentScratch/adopt-<app>/commands.md`. A command that was found but not verified is recorded only if the user chooses to in a single grouped question, as a line with a trailing comment `# unverified: <reason>`; the default is to leave it empty and list it in the report. Add `rules:` only for standing rules the user stated or the repo's own contributor docs state clearly (for example "run the release build after UI changes"); quote them. Read the file back and check it against the Phase 1 facts.
+Fill `commands:` from the verified results in `~/AgentScratch/adopt-<app>/commands.md`. A command that was found but not verified is recorded only if the user chooses to in a single grouped question, as a line with a trailing comment `# unverified: <reason>`; the default is to leave it empty and list it in the report. Add `rules:` only for standing rules the user stated or the repo's own contributor docs state clearly (for example "run the release build after UI changes"); quote them. Read the file back and check it against the Phase 1 facts. Also fill `test_environment:` (`standards/live-verification.md`): look for an existing deploy script, compose file, CI deploy job or infra record that names a test or staging target, then ask the user once where the app is deployed for testing, how to reset it and where a headless browser and attack tools run. Record what is confirmed, never credentials. None exists: leave it empty, list it as a gap in the adoption report, and make creating one the first recommended story.
 
 ## Phase 7: Adoption report
 

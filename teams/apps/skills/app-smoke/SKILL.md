@@ -84,6 +84,8 @@ Critical paths when no list exists (fallback, say so in the report): the app sta
 | extension | load into a throwaway browser profile, open the popup or the page it changes, capture |
 | library | build the examples and run them; the public API surface check is part of the tests; capture is N/A with the reason |
 
+Where `studio.yaml` `test_environment:` is set, deploy the candidate build there (its `deploy` command) and run the critical paths against that deployment, not only on a local copy (`standards/live-verification.md`). A smoke pass from a local run alone says so and is not live proof for a backend or web target.
+
 Compose the run result per target as exactly one line (orchestration.md section 10): `Run result: OBSERVED - <what was seen, evidence path> | NOT VERIFIED - <why> | N/A - <why nothing is observable>`. A UI-bearing target is never N/A.
 
 The main session opens at least one captured image per target (Read renders images) and one log or transcript, and confirms the claim in the report matches. An image that is blank, shows the wrong screen, or shows an error dialog is FAIL. Label specialist claims it did not check `UNVERIFIED`.

@@ -21,6 +21,8 @@ Classify the change by what it touches. A change with several types needs the ev
 
 A gate level may be tightened by the app's `studio.yaml` `rules:`. It is not loosened to get past a failure. NOT VERIFIED on a UI or Visual change blocks closing the story.
 
+**Live verification.** A change with runtime behaviour also needs live evidence: the built artifact deployed to the app's test environment and exercised like a user or attacker would (`live-verification.md`). Tests against fakes are extra layers, not the proof; without live evidence the story is NOT ASSESSED for that part, never done.
+
 ## Test rules
 
 - **Deterministic.** Same result every run. No wall-clock time, random values without a fixed seed, network, locale or timezone dependence unless that is the thing under test; inject clocks and random sources.

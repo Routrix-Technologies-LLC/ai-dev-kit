@@ -28,6 +28,13 @@ commands:                      # the exact commands, run from the repo root
   run: cargo run
   e2e: ""
   screenshot: ""               # how to capture the app without taking focus, if known
+test_environment:              # where the built artifact is deployed and attacked (standards/live-verification.md); no credentials
+  kind: test-server            # test-server | container | vm | emulator | device | staging
+  reach: "ssh alias or URL"
+  deploy: ""                   # exact command
+  reset: ""                    # exact command to a known state
+  browser: ""                  # where the headless browser runs against the web UI
+  attack_from: ""              # throwaway box for attack tools, never the user's machine
 modes:
   rigor: minimal               # minimal | standard | full   (standards/rigor.md)
   review: lean                 # solo | lean | full; omit to follow rigor

@@ -55,7 +55,8 @@ Who: `qa-lead` writes the plan; `test-engineer` writes the cases; they run in se
 `qa-lead` writes `docs/qa/test-plans/<scope>.md` from `templates/test-plan.md`, keeping the template's section names (Summary by change type, Automated tests required, Manual checklist, Platform and device matrix, Smoke scope, Fixtures and environments, Definition of done). Place the contents below as follows: scope and risk and open questions in the summary and Fixtures and environments; evidence by story in Summary by change type; regression selection in Automated tests required; scheduled non-functional checks in the Manual checklist; entry and exit criteria in Definition of done; the matrix and smoke scope in their own sections. Contents:
 
 1. **Scope and risk.** What is in, what is out, the riskiest changes first (data loss, money, auth, migrations, anything hard to roll back).
-2. **Evidence by story.** One row per story: types, the automated tests required (layer and location), the retained evidence required (screenshots per screen and state, request and response captures, migration dry-run output, measurements), and the manual checks. The row follows the evidence rules for each change type in `standards/testing.md`; UI and Visual evidence is a retained screenshot per screen and state per platform and form factor (light and dark if themed), a keyboard-only pass noted, and the Run result line (`orchestration.md` section 10); it is never waived by rigor.
+2. **Evidence by story.** One row per story: types, the automated tests required (layer and location), the retained evidence required (screenshots per screen and state, request and response captures, migration dry-run output, measurements), and the manual checks. The row follows the evidence rules for each change type in `standards/testing.md`; UI and Visual evidence is a retained screenshot per screen and state per platform and form factor (light and dark if themed), a keyboard-only pass noted, and the Run result line (`orchestration.md` section 10); it is never waived by rigor.   **Live proof.** Each row with runtime behaviour names the live check: the build deployed to `test_environment:`, the real requests, browser runs or install, and for security-relevant rows the attack tool and target (`standards/live-verification.md`). Fakes are listed as extra layers. No test environment: the plan's first item is creating one.
+
 3. **Platform matrix.** Derived from `platforms` and `stack.min_targets`, one row per target the scope touches:
 
 | Platform | Matrix rows | How each is proven |
@@ -121,6 +122,7 @@ Next: </app-skill ...> (<why>)
 - Never write a plan for zero stories.
 - Never invent evidence rules; they come from `standards/testing.md`.
 - Never waive the screenshot for a UI or Visual change at any rigor.
+- Never accept a plan whose proof for runtime behaviour is only unit tests or mocks. It needs a live check on the test environment.
 - A matrix row the team cannot prove today is a visible GAP with a closing action, never silently dropped.
 - Never rewrite or renumber existing stories. Back-fill edits are listed and approved first.
 - A fixed bug without a regression test is listed as a gap.
