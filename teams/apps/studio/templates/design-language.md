@@ -7,6 +7,7 @@ RIGOR: minimal = not required; if the app has a UI, a short version: principles 
        standard = sections 1 to 10; light and dark themes with measured contrast; component specs for every component in the UX specs; per-platform adaptation for each platform in studio.yaml.
        full = standard plus high-contrast and forced-colors themes, a token naming and export contract with the code, motion and reduced-motion rules, a documented change process and a visual regression baseline.
 GATE: DD-DESIGN-LANGUAGE. UX specs and code cite tokens and components by name from this file.
+CRAFT: the finish rules in standards/visual-craft.md (VC-01 onward) are the defaults for sections 3, 5, 6, 7 and 9: OKLCH ramps and gradients, alpha borders, nested radii derived as outer minus padding, dark-theme depth by lighter surfaces, icon stroke per text weight. Build them into the tokens; where this product departs from one, write the reason beside the token.
 Contrast numbers are measured, never estimated: write the ratio next to every foreground/background pair. Decide values for the product's own identity; only adopt platform defaults where being native is the goal.
 -->
 

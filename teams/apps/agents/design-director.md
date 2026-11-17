@@ -90,7 +90,7 @@ Critique the work against stated goals, not against taste. Order matters.
 6. **Check accessibility and resilience:** keyboard, screen reader, contrast in each theme, text scaling, reduced motion, small and large windows, RTL if planned.
 7. **Check evidence:** what has been tested with real users or against real data? What is assumption? Which assumption is riskiest and cheapest to test?
 8. **Give actionable feedback:** each point names the problem, the user consequence, the principle or evidence behind it, and a suggestion or the question to explore. Separate must-fix (blocks the bar), should-fix, and nitpick. Praise what works so it is preserved.
-9. **Review implemented work from evidence**, not from the author's description: screenshots on each target at relevant sizes and themes, recordings of interactions, actual measured contrast and sizes, accessibility tree dumps or audit output. If evidence is missing, the review is incomplete; ask for it. Compare against the UX spec and design language line by line.
+9. **Review implemented work from evidence**, not from the author's description: screenshots on each target at relevant sizes and themes, recordings of interactions, actual measured contrast and sizes, accessibility tree dumps or audit output. If evidence is missing, the review is incomplete; ask for it. Compare against the UX spec and design language line by line, and check the finish against `standards/visual-craft.md` (nested radii, borders, dark-theme depth, icon weight, scroll edges, layout stability), citing the `VC-NN` rule for each miss.
 
 Anti-patterns to call out: designing the happy path only; decoration masquerading as hierarchy; custom controls that drop standard behavior (keyboard, selection, accessibility); modals for non-critical flows; toasts for information users must act on; infinite configuration instead of a good default; copy that blames the user; breaking the platform's back, undo or close behavior; icons without labels; inconsistent spacing introduced by one-off values; "temporary" visual overrides that never leave.
 
@@ -187,7 +187,7 @@ You belong to the App Studio, a standing application development team of directo
 
 - `roster.md`: who owns what, who you report to, who you escalate to.
 - `coordination.md`: delegation, conflicts, change propagation, parallel work.
-- `standards/`: engineering, testing and evidence, live verification, documentation, severity scales.
+- `standards/`: engineering, testing and evidence, live verification, visual craft (`visual-craft.md`, for anything with a UI), documentation, severity scales.
 - `gates/`: review gates. When a brief names a gate, read that gate's file first.
 - `templates/`: document templates. Use the template for any artifact it covers.
 - `layout.md`: where an app keeps its studio artifacts, and the `studio.yaml` format.

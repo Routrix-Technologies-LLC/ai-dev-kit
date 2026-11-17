@@ -69,6 +69,7 @@ Spawn `ui-designer` alone (it needs the approved UX spec). It writes `docs/desig
 - component specs for every state and size class, spacing, type, iconography, imagery, motion with a reduced-motion alternative;
 - light, dark and high-contrast treatment, with measured contrast ratios for every text and control pair (not asserted);
 - per-platform adaptation (density, platform conventions, safe areas, window resizing, text scaling, touch target or pointer sizes);
+- the finish rules from `standards/visual-craft.md` that apply to this area (nested radii, borders, depth per theme, icon weight, scroll edges, icon-swap motion), with any departure and its reason;
 - an asset manifest with sizes and formats.
 
 Decision point: the user approves or revises. New design-language tokens go through `/app-design-language`, not into the spec as facts. Check: the file exists and lists contrast pairs with numbers.

@@ -21,6 +21,7 @@ Agent: `design-director`
 > (4) For each platform in `platforms`, is it stated what adapts (navigation patterns, controls, density, input method, window or safe-area behavior, system fonts) and what stays consistent? Is there a rule for when to follow the platform guideline (Apple HIG, Fluent, Material, web conventions) and when to depart?
 > (5) Is each component specified with its states (default, hover, focus, pressed, disabled, loading, error, empty) and sizing for touch and pointer targets?
 > (6) Is it implementable: can engineers map tokens to the stack's theming mechanism, and does it avoid values that cannot be produced consistently across targets?
+> (7) Does it carry the finish rules in `standards/visual-craft.md` as tokens and rules (radii that nest concentrically, alpha borders, perceptual color space for ramps and gradients, dark-theme depth by surface lightness, icon stroke per text weight), with a written reason wherever it departs from one? Cite the `VC-NN` ID for each gap. These are CONCERNS, not blockers, unless they break contrast or focus.
 > Return APPROVE, CONCERNS [list], or REJECT [blockers]."
 
 **Verdicts**: APPROVE / CONCERNS / REJECT

@@ -77,6 +77,10 @@ Define a small set of elevation levels, each with its shadow, tonal overlay or b
 
 Motion explains change (where something came from or went), confirms an action, or directs attention. It never decorates a task the user repeats all day. Define a short duration scale (micro-interactions around 100 to 200 milliseconds, transitions around 200 to 400, larger choreography longer only when it earns it) and a small easing set (decelerate for entering, accelerate for exiting, standard for movement). Use the platform's physics and system transitions where they exist. Reduced motion: replace movement with fades or instant change, remove parallax, auto-play and looping animation, never remove information. Nothing flashes more than three times per second. Animations are interruptible and never block input. Specify motion per component in the spec so engineers do not invent it.
 
+### Visual craft
+
+`standards/visual-craft.md` holds the studio's finish rules (`VC-01` onward): concentric nested radii (inner = outer minus the gap), alpha borders, OKLCH color and gradient interpolation, tinted neutrals, dark-theme depth by surface lightness, icon stroke matched to text weight, tabular figures, masked scroll-edge fades, blurred icon swaps and the rest. Read it before you write a design language or a visual spec, and build its rules into the tokens (radii that derive from each other, border and shadow tokens with alpha, OKLCH ramps, an icon stroke per text weight) so engineers get them by using the token. Where the product departs from a rule, write the reason next to the token. In a visual review, cite the rule ID for each deviation.
+
 ### Component specs
 
 A component spec is complete when an engineer can build it and a tester can verify it. Use this template per component.
@@ -133,7 +137,7 @@ You belong to the App Studio, a standing application development team of directo
 
 - `roster.md`: who owns what, who you report to, who you escalate to.
 - `coordination.md`: delegation, conflicts, change propagation, parallel work.
-- `standards/`: engineering, testing and evidence, live verification, documentation, severity scales.
+- `standards/`: engineering, testing and evidence, live verification, visual craft (`visual-craft.md`, for anything with a UI), documentation, severity scales.
 - `gates/`: review gates. When a brief names a gate, read that gate's file first.
 - `templates/`: document templates. Use the template for any artifact it covers.
 - `layout.md`: where an app keeps its studio artifacts, and the `studio.yaml` format.

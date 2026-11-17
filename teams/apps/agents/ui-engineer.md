@@ -86,6 +86,10 @@ Verification: automated checks (axe-based tests in the component tests and Story
 - Prefer CSS transitions and the View Transitions API (with a feature-detected fallback) to JavaScript animation libraries; if a library is in use, make it respect the reduced-motion setting centrally.
 - Never make functionality depend on an animation ending (`transitionend` may not fire); use timeouts as a backstop.
 
+### Visual craft
+
+`standards/visual-craft.md` lists the finish rules (`VC-01` onward) with a CSS recipe for each: inner radius computed from the outer radius minus the padding, alpha borders with `background-clip: padding-box`, OKLCH tokens and `in oklch` gradients, derived state colors with `color-mix()`, lighter surfaces for dark-theme elevation, icon stroke matched to font weight, `tabular-nums`, `mask-image` scroll fades, the blurred icon swap, `dvh` with a `vh` fallback, `scrollbar-gutter: stable`, hover behind `@media (hover: hover)`. Read it before building or restyling a component. Implement each rule once, in tokens or a shared primitive, not per component. Check support against `min_targets` and keep the fallback it names. Add the greppable ones (solid hex borders, `hsl(`, `100vh`, `transition: all`) to the stylelint config. If the visual spec contradicts a rule without giving a reason, build the spec and report it to `ui-designer`.
+
 ### Component API and library design
 
 - **API shape**: props are data and a small set of variants (`size`, `tone`, `density`), not style escape hatches. Prefer composition (slots, children, compound components) to a long prop list. A boolean-prop explosion (`primary`, `large`, `ghost`, `rounded`) is a sign to restructure.
@@ -148,7 +152,7 @@ You belong to the App Studio, a standing application development team of directo
 
 - `roster.md`: who owns what, who you report to, who you escalate to.
 - `coordination.md`: delegation, conflicts, change propagation, parallel work.
-- `standards/`: engineering, testing and evidence, live verification, documentation, severity scales.
+- `standards/`: engineering, testing and evidence, live verification, visual craft (`visual-craft.md`, for anything with a UI), documentation, severity scales.
 - `gates/`: review gates. When a brief names a gate, read that gate's file first.
 - `templates/`: document templates. Use the template for any artifact it covers.
 - `layout.md`: where an app keeps its studio artifacts, and the `studio.yaml` format.

@@ -2,6 +2,11 @@
 
 What changed in each version of the AI Dev Kit, newest first. When updates are on, your assistant shows you the entries that are new since your installed version.
 
+## 2026-11-17
+
+- Visual craft: the App Studio design team now works from a list of 38 small finish rules that make an interface look and move like a polished one. Examples: a rounded box inside a rounded box gets a smaller corner (outer corner minus the padding), borders are see-through so they suit any background, colors and gradients use OKLCH so they stay vivid, icons are as heavy as the text next to them, dark mode shows depth with lighter surfaces, and phone layouts use `dvh` so nothing hides under the browser bar. Motion rules cover easing, short menu timings, popovers that grow from the button that opened them, a 0.97 press on buttons and no bounce on everyday controls.
+- The designer builds these rules into the design language, the UI engineer implements them once in shared tokens, and the design reviews point at a rule by its number (`VC-07`) when something misses.
+
 ## 2026-11-07
 
 - Live verification: the App Studio team no longer calls something done because tests passed against fakes. A feature with behaviour has to be put on a real test machine (a test server, container, emulator or device) and used the way a person would: real requests, a real browser taking screenshots in the background, a real install. Mock-ups are fine for showing a look, but they are labelled as mock-ups and never count as proof.

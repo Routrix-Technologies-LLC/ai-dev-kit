@@ -72,7 +72,7 @@ Then the visual direction option. Write principles and the chosen strategy into 
 2. Color: roles, not swatches. Neutral ramp, accent, semantic status colors (success, warning, danger, info), focus color, data-visualization colors if the app has charts (and color-blind-safe pairs).
 3. Typography: families (with license), type scale by role (display, heading, body, label, code), weights, line heights, platform text rendering notes, how text scales with the platform's text size setting (dynamic type, font scaling, browser zoom).
 4. Spacing, layout and size classes: spacing scale, grid or layout rules, breakpoints for web and size classes or window width classes for desktop and mobile, minimum window size for desktop, density options.
-5. Shape and elevation: radii, borders, shadows or tonal elevation, focus ring.
+5. Shape and elevation: radii, borders, shadows or tonal elevation, focus ring. The finish rules in `standards/visual-craft.md` (`VC-01` onward) are the defaults here and for color, iconography and motion; `ui-designer` builds them into the tokens and records a reason for any departure.
 6. Motion: durations and easing by purpose (feedback, transition, emphasis), what must never animate, reduced-motion behaviour for every animation class.
 7. Iconography and imagery: icon set (license), sizes, stroke or fill rule, illustration and photo direction, app icon and splash requirements for each platform's shipped sizes and shapes (adaptive and rounded-mask conventions, store asset sizes are filled by `/app-store-prep`).
 8. Sound and haptics only if the product uses them (recorded under Motion).

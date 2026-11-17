@@ -21,6 +21,7 @@ Agent: `design-director`
 > (4) Are layout, truncation, scaling and window or orientation behavior correct at the extremes (smallest and largest size class, long strings, large text settings)?
 > (5) Are focus indication, contrast and target sizes visible in the captures?
 > (6) Is the evidence sufficient: does it cover every changed screen and state, from the real build, not a mock? An unobserved platform or theme is a gap, not a pass.
+> (7) Does the finish hold up against `standards/visual-craft.md`: concentric nested corners, borders that sit right on every background and theme, visible depth in the dark theme, icon weight matching the text beside it, faded scroll edges, nothing shifting as content loads? Cite the `VC-NN` ID and the capture for each miss. These are CONCERNS, not blockers, unless the design language made the rule a requirement.
 > Return APPROVE, CONCERNS [list], or REJECT [blockers]."
 
 **Verdicts**: APPROVE / CONCERNS / REJECT
